@@ -1,14 +1,14 @@
 require_relative "lib/ferbe/version"
 
 Gem::Specification.new do |spec|
-  spec.name        = "ferbe"
-  spec.version     = Ferbe::VERSION
-  spec.authors     = [ "Tim Landolt" ]
-  spec.email       = [ "timlandolt@gmx.ch" ]
-  spec.homepage    = "TODO"
-  spec.summary     = "TODO: Summary of Ferbe."
+  spec.name = "ferbe"
+  spec.version = Ferbe::VERSION
+  spec.authors = ["Tim Landolt"]
+  spec.email = ["timlandolt@gmx.ch"]
+  spec.homepage = "TODO"
+  spec.summary = "TODO: Summary of Ferbe."
   spec.description = "TODO: Description of Ferbe."
-  spec.license     = "MIT"
+  spec.license = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the "allowed_push_host"
   # to allow pushing to a single host or delete this section to allow pushing to any host.

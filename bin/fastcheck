@@ -1,0 +1,23 @@
+#!/bin/sh
+
+set -e
+
+if ! bundle exec standardrb --fail-fast
+then
+  echo 'StandardRB detected issues!'
+  bundle exec standardrb --fix
+  echo 'Tried to auto-correct the issues, but they must be reviewed manually. Commit aborted.'
+  exit 1
+fi
+
+# format
+npx prettier . --write
+
+# for css
+npx stylelint **/*.css
+
+# for erb
+bundle exec erb_lint --lint-all
+
+# for javascript
+npx eslint app/javascripts
