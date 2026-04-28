@@ -1,6 +1,22 @@
 # Configure Rails Environment
 ENV["RAILS_ENV"] = "test"
 
+require "simplecov"
+SimpleCov.start "rails" do
+  # TODO: Remove filters as soon as logic is added
+  add_filter "lib/ferbe.rb"
+  add_filter "lib/ferbe/version.rb"
+  add_filter "lib/ferbe/engine.rb"
+  add_filter "app/controllers/ferbe/application_controller.rb"
+  add_filter "app/helpers/ferbe/application_helper.rb"
+  add_filter "app/jobs/ferbe/application_job.rb"
+  add_filter "app/models/ferbe/application_record.rb"
+
+  enable_coverage :branch
+  enable_coverage_for_eval
+  minimum_coverage line: 100, branch: 100
+end
+
 require_relative "../test/dummy/config/environment"
 ActiveRecord::Migrator.migrations_paths = [ File.expand_path("../test/dummy/db/migrate", __dir__) ]
 ActiveRecord::Migrator.migrations_paths << File.expand_path("../db/migrate", __dir__)
