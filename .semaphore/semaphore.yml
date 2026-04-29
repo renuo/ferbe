@@ -8,7 +8,7 @@ agent:
 
 auto_cancel:
   running:
-    when: 'true'
+    when: "true"
 
 fail_fast:
   cancel:
