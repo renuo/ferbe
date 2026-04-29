@@ -1,0 +1,27 @@
+#!/bin/sh
+
+for cache_group in "$@"
+do
+  case $cache_group in
+
+  rails)
+    cache restore "nvm-$SEMAPHORE_GIT_BRANCH-$(checksum .nvmrc),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop"
+    cache restore "gems-$SEMAPHORE_GIT_BRANCH-$(checksum .ruby-version)-$(checksum Gemfile.lock),gems-develop-$(checksum .ruby-version)-$(checksum Gemfile.lock),gems-develop-$(checksum .ruby-version)"
+    cache restore "npm-cache-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),npm-cache-$SEMAPHORE_GIT_BRANCH,npm-cache-develop"
+    cache restore "node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop"
+    ;;
+
+  python)
+    cache restore "requirements-$SEMAPHORE_GIT_BRANCH-$(checksum requirements.txt),requirements-$SEMAPHORE_GIT_BRANCH,requirements-develop"
+    ;;
+
+  assets)
+    cache restore "assets-$SEMAPHORE_GIT_BRANCH,assets-develop"
+    ;;
+
+  *)
+    echo "Invalid argument: Cache group $cache_group not found."
+    exit 1
+    ;;
+  esac
+done
