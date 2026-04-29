@@ -19,10 +19,10 @@ then
 fi
 
 # format
-yarn prettier . --write
+npx prettier . --write
 
 # for css
-yarn stylelint "./app/assets/stylesheets/**/*.css"
+npx stylelint "./app/assets/stylesheets/**/*.css"
 
 # for javascript
-yarn eslint app/javascript
+npx eslint app/javascript
