@@ -10,14 +10,19 @@ then
   exit 1
 fi
 
+if ! bundle exec erb_lint --lint-all
+then
+  echo 'erb_lint detected issues!'
+  bundle exec erb_lint --lint-all --autocorrect
+  echo 'Tried to auto correct the issues, but must be reviewed manually, commit aborted'
+  exit 1
+fi
+
 # format
-npx prettier . --write
+yarn prettier . --write
 
 # for css
-npx stylelint **/*.css
-
-# for erb
-bundle exec erb_lint --lint-all
+yarn stylelint "./app/assets/stylesheets/**/*.css"
 
 # for javascript
-npx eslint app/javascripts
+yarn eslint app/javascript
