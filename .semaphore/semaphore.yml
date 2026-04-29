@@ -25,6 +25,7 @@ global_job_config:
       - bundle config set deployment 'true'
       - bundle config set path 'vendor/bundle'
       - bundle install
+      - npm install
 
 blocks:
   - name: linting
