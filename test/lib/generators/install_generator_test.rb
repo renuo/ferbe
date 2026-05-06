@@ -18,5 +18,13 @@ module Ferbe
         assert_match 'mount Ferbe::Engine => "/ferbe"', routes
       end
     end
+
+    test "generator generates configuration" do
+      run_generator
+
+      assert_file "config/initializers/ferbe.rb" do |config|
+        assert_match "Ferbe.configure do |config|", config
+      end
+    end
   end
 end

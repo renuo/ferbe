@@ -3,13 +3,15 @@ ENV["RAILS_ENV"] = "test"
 
 require "simplecov"
 SimpleCov.start "rails" do
+  add_filter "lib/ferbe/configuration.rb" # For some reason this wouldn't be included in coverage.
+
   # TODO: Remove filters as soon as logic is added
   add_filter "lib/ferbe.rb"
   add_filter "lib/ferbe/version.rb"
   add_filter "lib/ferbe/engine.rb"
+  add_filter "lib/generators/ferbe/install/templates"
   add_filter "app/controllers/ferbe/application_controller.rb"
   add_filter "app/helpers/ferbe/application_helper.rb"
-  add_filter "app/jobs/ferbe/application_job.rb"
   add_filter "app/models/ferbe/application_record.rb"
 
   enable_coverage :branch
