@@ -1,0 +1,3 @@
+---
+glob: app/views/**/*.erb
+EnableDefaultLinters: true
