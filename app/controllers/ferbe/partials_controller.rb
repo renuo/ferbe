@@ -20,6 +20,7 @@ module Ferbe
       return head :bad_request unless valid_path? partial_params[:path]
 
       File.write(partial_params[:path], partial_params[:content])
+      render turbo_stream: turbo_stream.action(:reload, "")
     end
 
     private
