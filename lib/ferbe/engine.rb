@@ -7,7 +7,7 @@ module Ferbe
     # :nocov: -> manually tested by T08
     if Ferbe.configuration.enabled
       initializer "ferbe.partial_wrapping" do
-        Ferbe.partial_wrapper = Ferbe::PartialWrapper.new("test")
+        Ferbe.partial_wrapper = Ferbe::PartialWrapper.new("ferbe-partial")
 
         ActiveSupport.on_load(:action_view) do
           ActionView::PartialRenderer.prepend(Ferbe::PartialWrapping)
