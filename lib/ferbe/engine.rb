@@ -5,13 +5,14 @@ module Ferbe
     isolate_namespace Ferbe
 
     # :nocov: -> manually tested by T08
-    if Ferbe.configuration.enabled
-      initializer "ferbe.partial_wrapping" do
-        Ferbe.partial_wrapper = Ferbe::PartialWrapper.new("ferbe-partial")
+    initializer "ferbe.partial_wrapping" do
+      next unless Ferbe.configuration.enabled
 
-        ActiveSupport.on_load(:action_view) do
-          ActionView::PartialRenderer.prepend(Ferbe::PartialWrapping)
-        end
+      Ferbe.wrapper_tag = "ferbe-partial"
+      Ferbe.partial_wrapper = Ferbe::PartialWrapper.new(Ferbe.wrapper_tag)
+
+      ActiveSupport.on_load(:action_view) do
+        ActionView::PartialRenderer.prepend(Ferbe::PartialWrapping)
       end
     end
     # :nocov:
