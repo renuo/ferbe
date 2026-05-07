@@ -16,5 +16,13 @@ module Ferbe
       end
     end
     # :nocov:
+
+    # :nocov: -> the manual tests wouldn't work without this
+    initializer "ferbe.helpers" do
+      ActiveSupport.on_load(:action_view) do
+        include Ferbe::EditorHelper
+      end
+    end
+    # :nocov:
   end
 end

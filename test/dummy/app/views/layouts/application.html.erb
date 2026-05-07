@@ -19,7 +19,7 @@
   <script src="https://unpkg.com/@knadh/oat/oat.min.js" defer></script>
 
   <%= stylesheet_link_tag :app %>
-    <%= javascript_importmap_tags %>
+  <%= javascript_importmap_tags %>
 </head>
 
 <body>
@@ -27,6 +27,6 @@
   <%= yield %>
 </main>
 
-<div id="ferbe-editor"></div>
+<%= ferbe_editor_tag %>
 </body>
 </html>
