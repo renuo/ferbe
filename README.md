@@ -30,6 +30,6 @@ $ gem install ferbe
 
 Contribution directions go here.
 
-***
+---
 
 Copyright 2026 by Renuo AG

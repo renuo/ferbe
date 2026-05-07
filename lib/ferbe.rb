@@ -3,5 +3,7 @@ require "ferbe/configuration"
 require "ferbe/engine"
 
 module Ferbe
-  # Your code goes here...
+  class << self
+    attr_accessor :partial_wrapper, :wrapper_tag
+  end
 end

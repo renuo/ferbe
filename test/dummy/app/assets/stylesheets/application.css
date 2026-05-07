@@ -13,3 +13,46 @@
  *= require_tree .
  *= require_self
  */
+
+main {
+  width: min(80rem, 100%);
+  margin-inline: auto;
+}
+
+.partial {
+  margin-block: 1rem;
+  padding: 1rem;
+  min-height: 3rem;
+}
+
+.red {
+  background-color: var(--danger);
+  opacity: 0.5;
+}
+
+.orange {
+  background-color: var(--warning);
+  opacity: 0.5;
+}
+
+.green {
+  background-color: var(--success);
+  opacity: 0.5;
+}
+
+.traffic-light {
+  border: 0.25rem solid;
+
+  &.is-horizontal {
+    display: flex;
+    gap: 1rem;
+
+    * {
+      flex-grow: 1;
+    }
+  }
+}
+
+.tower {
+  border: 0.25rem solid;
+}
