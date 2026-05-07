@@ -1,4 +1,4 @@
-require 'ferbe/partial_wrapping'
+require "ferbe/partial_wrapping"
 
 module Ferbe
   class Engine < ::Rails::Engine

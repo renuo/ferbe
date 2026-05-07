@@ -21,7 +21,8 @@ main {
 
 .partial {
   margin-block: 1rem;
-  padding: 5rem;
+  padding: 1rem;
+  min-height: 3rem;
 }
 
 .red {
@@ -40,5 +41,18 @@ main {
 }
 
 .traffic-light {
+  border: 0.25rem solid;
+
+  &.is-horizontal {
+    display: flex;
+    gap: 1rem;
+
+    * {
+      flex-grow: 1;
+    }
+  }
+}
+
+.tower {
   border: 0.25rem solid;
 }

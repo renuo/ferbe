@@ -1,4 +1,4 @@
-require 'ferbe/partial_wrapper'
+require "ferbe/partial_wrapper"
 
 module Ferbe
   module PartialWrapping

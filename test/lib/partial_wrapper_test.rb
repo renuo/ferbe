@@ -1,5 +1,5 @@
 require "test_helper"
-require 'ferbe/partial_wrapper'
+require "ferbe/partial_wrapper"
 
 module Ferbe
   class PartialWrapperTest < ActiveSupport::TestCase

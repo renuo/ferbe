@@ -1,0 +1,6 @@
+<%# locals: (counter:)  %>
+<% counter -= 1 %>
+
+<div class="partial tower">
+  <%= render partial: "shared/tower", locals: { counter: counter } unless counter <= 0 %>
+</div>
