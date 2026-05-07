@@ -35,8 +35,17 @@ module Ferbe
     end
 
     test "edit as html returns no content" do
-      get edit_partial_url
-      assert_response :no_content
+      Tempfile.create(["test", ".html.erb"], Rails.root.join("tmp")) do |file|
+        file.write "I am a partial!"
+
+        get edit_partial_url, params: {partial: {path: file.path}}
+        assert_response :no_content
+      end
+    end
+
+    test "reject editing of invalid partial" do
+      get edit_partial_url, params: {partial: {path: "some/invalid/file.txt"}}
+      assert_response :bad_request
     end
   end
 end
