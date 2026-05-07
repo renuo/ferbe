@@ -1,7 +1,17 @@
 module Ferbe
   class PartialsController < ApplicationController
     def edit
-      # TODO: Implement
+      partial_params = params.require(:partial).permit(:path)
+      return head :bad_request unless valid_path? partial_params[:path]
+
+      @partial = {
+        code: File.read(partial_params[:path])
+      }
+
+      respond_to do |format|
+        format.turbo_stream
+        format.html { head :no_content }
+      end
     end
 
     def update

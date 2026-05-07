@@ -33,5 +33,10 @@ module Ferbe
         assert_equal new_content, File.read(file.path)
       end
     end
+
+    test "edit as html returns no content" do
+      get edit_partial_url
+      assert_response :no_content
+    end
   end
 end
