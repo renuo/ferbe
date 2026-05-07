@@ -3,9 +3,21 @@ require "ferbe/partial_wrapper"
 
 module Ferbe
   class PartialWrapperTest < ActiveSupport::TestCase
+    setup do
+      @wrapper = Ferbe::PartialWrapper.new("test")
+    end
+
     test "wrapping a simple string" do
-      wrapper = Ferbe::PartialWrapper.new("test")
-      assert_equal wrapper.wrap("some content"), "<test>some content</test>"
+      assert_equal @wrapper.wrap(body: "some content"), "<test>some content</test>"
+    end
+
+    test "wrapping a simple string with path" do
+      path = "some/path"
+      full_path = Rails.root.join(path)
+
+      wrapped_string = @wrapper.wrap(body: "some content", path: "some/path")
+
+      assert_equal wrapped_string, "<test path=\"#{path}\" full-path=\"#{full_path}\">some content</test>"
     end
   end
 end
