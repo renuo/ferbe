@@ -6,22 +6,22 @@ export default class FerbePartial extends HTMLElement {
   connectedCallback() {
     const editor = document.getElementById("ferbe-editor");
     this.modifierKey = editor?.dataset?.modifierKey || "alt";
+
     this.path = this.getAttribute("path");
     this.fullPath = this.getAttribute("full-path");
 
     this.onclick = (event) => {
-      if (this.#isModifierKeyPressed(event)) {
-        event.stopPropagation();
+      event.stopPropagation();
+      if (!this.#isModifierKeyPressed(event)) return;
 
-        document.dispatchEvent(
-          new CustomEvent("ferbe-open-editor", {
-            detail: {
-              fullPath: this.fullPath,
-              path: this.path,
-            },
-          }),
-        );
-      }
+      document.dispatchEvent(
+        new CustomEvent("ferbe-open-editor", {
+          detail: {
+            fullPath: this.fullPath,
+            path: this.path,
+          },
+        }),
+      );
     };
   }
 
