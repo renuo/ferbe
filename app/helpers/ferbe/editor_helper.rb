@@ -4,7 +4,9 @@ module Ferbe
     def ferbe_editor_tag
       return unless Ferbe.configuration.enabled
 
-      tag.div id: "ferbe-editor"
+      tag.div id: "ferbe-editor", data: {
+        modifier_key: Ferbe.configuration.modifier_key
+      }
     end
     #:nocov:
   end

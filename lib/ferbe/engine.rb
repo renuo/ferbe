@@ -24,5 +24,14 @@ module Ferbe
       end
     end
     # :nocov:
+
+    initializer "ferbe.assets" do |app|
+      app.config.assets.paths << root.join("app/javascript")
+    end
+
+    initializer "ferbe.importmap", before: "importmap" do |app|
+      app.config.importmap.paths << root.join("config/importmap.rb")
+      app.config.importmap.cache_sweepers << root.join("app/javascript")
+    end
   end
 end

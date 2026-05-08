@@ -8,7 +8,10 @@ export default defineConfig([
   {
     files: ["app/javascript/**/*.js"],
     languageOptions: {
-      globals: globals.browser,
+      globals: {
+        ...globals.browser,
+        Turbo: "readonly",
+      },
     },
   },
   eslintConfigPrettier,

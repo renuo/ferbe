@@ -5,7 +5,10 @@ module Ferbe
   module PartialWrapping
     def render(context, options, block)
       result = super
-      wrapped_body = Ferbe.partial_wrapper.wrap(body: result.body, path: result.template.short_identifier).html_safe
+      wrapped_body = Ferbe.partial_wrapper.wrap(
+        body: result.body,
+        path: result.template.identifier
+      ).html_safe
 
       result.class.new(wrapped_body, result.template)
     end
