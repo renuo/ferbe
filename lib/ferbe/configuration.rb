@@ -4,7 +4,7 @@ module Ferbe
 
     def initialize
       @enabled = true
-      @modifier_key = "Alt"
+      @modifier_key = "alt"
       @use_local_editor = false
     end
   end
