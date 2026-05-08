@@ -1,17 +1,11 @@
 export default class FerbePartial extends HTMLElement {
-  constructor() {
-    super();
-  }
-
   connectedCallback() {
     const editor = document.getElementById("ferbe-editor");
     this.modifierKey = editor?.dataset?.modifierKey || "alt";
 
     this.onclick = async (event) => {
       event.stopPropagation();
-      if (!this.#isModifierKeyPressed(event)) return;
-
-      this.#openInEditor();
+      if (this.#isModifierKeyPressed(event)) this.#openInEditor();
     };
   }
 
