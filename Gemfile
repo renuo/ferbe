@@ -17,3 +17,5 @@ end
 group :test do
   gem "simplecov", require: false
 end
+
+gem "stimulus-rails", "~> 1.3"

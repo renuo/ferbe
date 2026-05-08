@@ -13,6 +13,7 @@ module Ferbe
       return unless Ferbe.configuration.enabled
 
       tag.div class: "ferbe__editor", id: "ferbe-editor", data: {
+        controller: "ferbe-editor",
         modifier_key: Ferbe.configuration.modifier_key
       }
     end

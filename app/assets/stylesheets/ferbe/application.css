@@ -1,5 +1,3 @@
-@import "foundation";
-
 .ferbe__page {
   display: flex;
   height: 100vh;
@@ -12,8 +10,5 @@
   .ferbe__editor:has(> *) {
     width: min(50vw, 60rem);
     overflow: auto;
-    border-left: 1px solid #ccc;
-    background-color: #f9f9f9;
-    padding: 1rem;
   }
 }
