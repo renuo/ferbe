@@ -12,12 +12,11 @@ module Ferbe
     end
 
     test "wrapping a simple string with path" do
-      path = "some/path"
-      full_path = Rails.root.join(path)
+      path = Rails.root.join("some/path")
 
-      wrapped_string = @wrapper.wrap(body: "some content", path: "some/path")
+      wrapped_string = @wrapper.wrap(body: "some content", path: path)
 
-      assert_equal wrapped_string, "<test path=\"#{path}\" full-path=\"#{full_path}\">some content</test>"
+      assert_equal wrapped_string, "<test path=\"#{path}\">some content</test>"
     end
   end
 end

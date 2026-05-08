@@ -27,9 +27,9 @@ export default class FerbePartial extends HTMLElement {
   }
 
   #openInEditor() {
-    const fullPath = this.getAttribute("full-path");
+    const path = this.getAttribute("path");
 
-    fetch(`/ferbe/partial/edit?partial[path]=${fullPath}`, {
+    fetch(`/ferbe/partial/edit?partial[path]=${path}`, {
       headers: { Accept: "text/vnd.turbo-stream.html" },
     })
       .then((r) => r.text())

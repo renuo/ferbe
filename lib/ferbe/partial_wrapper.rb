@@ -9,11 +9,7 @@ module Ferbe
     end
 
     def wrap(body:, path: nil)
-      full_path = Rails.root.join(path) if path
-
-      attributes = path ? " path=\"#{path}\" full-path=\"#{full_path}\"" : ""
-
-      "<#{tag}#{attributes}>#{body}</#{tag}>"
+      "<#{tag}#{" path=\"#{path}\"" if path}>#{body}</#{tag}>"
     end
   end
 end
