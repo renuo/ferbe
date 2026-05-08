@@ -1,4 +1,3 @@
-import PartialDetector from "ferbe/partial_detector";
+import FerbePartial from "ferbe/elements/ferbe_partial";
 
-const detector = new PartialDetector();
-detector.registerListener();
+customElements.define("ferbe-partial", FerbePartial);
