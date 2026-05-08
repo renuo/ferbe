@@ -7,21 +7,11 @@ export default class FerbePartial extends HTMLElement {
     const editor = document.getElementById("ferbe-editor");
     this.modifierKey = editor?.dataset?.modifierKey || "alt";
 
-    this.path = this.getAttribute("path");
-    this.fullPath = this.getAttribute("full-path");
-
-    this.onclick = (event) => {
+    this.onclick = async (event) => {
       event.stopPropagation();
       if (!this.#isModifierKeyPressed(event)) return;
 
-      document.dispatchEvent(
-        new CustomEvent("ferbe:open-editor", {
-          detail: {
-            fullPath: this.fullPath,
-            path: this.path,
-          },
-        }),
-      );
+      this.#openInEditor();
     };
   }
 
@@ -34,5 +24,15 @@ export default class FerbePartial extends HTMLElement {
     };
 
     return !!modifierKeys[this.modifierKey];
+  }
+
+  #openInEditor() {
+    const fullPath = this.getAttribute("full-path");
+
+    fetch(`/ferbe/partial/edit?partial[path]=${fullPath}`, {
+      headers: { Accept: "text/vnd.turbo-stream.html" },
+    })
+      .then((r) => r.text())
+      .then((html) => Turbo.renderStreamMessage(html));
   }
 }
