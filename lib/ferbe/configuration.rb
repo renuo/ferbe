@@ -1,10 +1,10 @@
 module Ferbe
   class Configuration
-    attr_accessor :enabled, :modifyer_key, :use_local_editor
+    attr_accessor :enabled, :modifier_key, :use_local_editor
 
     def initialize
       @enabled = true
-      @modifyer_key = "Alt"
+      @modifier_key = "Alt"
       @use_local_editor = false
     end
   end
