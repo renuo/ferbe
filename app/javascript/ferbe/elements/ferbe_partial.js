@@ -15,7 +15,7 @@ export default class FerbePartial extends HTMLElement {
       if (!this.#isModifierKeyPressed(event)) return;
 
       document.dispatchEvent(
-        new CustomEvent("ferbe-open-editor", {
+        new CustomEvent("ferbe:open-editor", {
           detail: {
             fullPath: this.fullPath,
             path: this.path,
