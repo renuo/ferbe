@@ -1,13 +1,27 @@
 <%= turbo_stream.update "ferbe-editor" do %>
   <div data-controller="ferbe-editor">
-    <button data-action="ferbe-editor#close" class="button">❌</button>
+    <div class="ferbe__header">
+      <button data-action="ferbe-editor#close" class="ferbe__button">❌</button>
+      <h2><%= Pathname.new(@partial[:path]).relative_path_from(Rails.root) %></h2>
+    </div>
+    <pre class="ferbe__render-path">
+<% @partial[:render_path].each_with_index do |path, level| %>
+<%= " " * level %>> <%= link_to(
+                               Pathname.new(path).relative_path_from(Rails.root),
+                               edit_partial_url(partial: {
+                                 path: path,
+                                 render_path: @partial[:render_path]
+                               }),
+                               data: { turbo_stream: true }) %>
+<% end %>
+</pre>
     <%= form_with url: partial_url, method: :patch, scope: :partial do |form| %>
       <%= form.hidden_field :path, value: @partial[:path] %>
       <%= form.hidden_field :content,
-                        value: @partial[:content],
-                        data: { ferbe_editor_target: "input" } %>
+                            value: @partial[:content],
+                            data: { ferbe_editor_target: "input" } %>
       <pre><code data-ferbe-editor-target="editor"><%= @partial[:content] %></code></pre>
-      <%= form.submit "💾", class: "button save-button" %>
+      <%= form.submit "💾", class: "ferbe__button ferbe__save-button" %>
     <% end %>
   </div>
 <% end %>

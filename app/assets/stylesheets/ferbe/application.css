@@ -1,7 +1,7 @@
 :root {
   --ferbe-color-light-grey: #fafafa;
   --ferbe-color-grey: #dedede;
-
+  --ferbe-color-blue: #0033b3;
   --ferbe-border: 2px solid var(--ferbe-color-grey);
 }
 
@@ -21,12 +21,12 @@
     width: min(50vw, 60rem);
     padding: 1rem;
     overflow: auto;
+    font-family: sans-serif;
 
-    pre:has(code) {
+    pre {
       padding: 1rem;
       border: var(--ferbe-border);
       border-radius: 0.5rem;
-
       background-color: var(--ferbe-color-light-grey);
       overflow: auto;
       cursor: text;
@@ -37,20 +37,48 @@
       }
     }
 
-    .button {
+    .ferbe__button {
       width: 2.5rem;
       height: 2.5rem;
       padding: 0.5rem;
       border: var(--ferbe-border);
       border-radius: 0.5rem;
-
       background-color: var(--ferbe-color-light-grey);
       font: inherit;
       line-height: normal;
       cursor: pointer;
 
-      &.save-button {
+      &.ferbe__save-button {
         width: 100%;
+      }
+    }
+
+    .ferbe__header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-block: 1rem 2rem;
+      padding-bottom: 1rem;
+      border-bottom: var(--ferbe-border);
+
+      h2 {
+        margin: 0;
+        font-size: 1.5rem;
+      }
+    }
+
+    .ferbe__render-path {
+      max-height: 20rem;
+      overflow: auto;
+      margin-bottom: 2rem;
+
+      a {
+        text-decoration: none;
+        color: var(--ferbe-color-blue);
+
+        &:visited {
+          color: var(--ferbe-color-blue);
+        }
       }
     }
   }
