@@ -2,7 +2,10 @@ module Ferbe
   module Helper
     #:nocov: -> tested implicitly through all manual system tests
     def ferbe_styles_tag
-      stylesheet_link_tag "ferbe/application", media: "all"
+      capture do
+        concat stylesheet_link_tag "ferbe/highlight", media: "all"
+        concat stylesheet_link_tag "ferbe/application", media: "all"
+      end
     end
 
     def ferbe_javascript_tag
@@ -13,8 +16,8 @@ module Ferbe
       return unless Ferbe.configuration.enabled
 
       tag.div class: "ferbe__editor", id: "ferbe-editor", data: {
-        controller: "ferbe-editor",
-        modifier_key: Ferbe.configuration.modifier_key
+        modifier_key: Ferbe.configuration.modifier_key,
+        turbo_permanent: true
       }
     end
     #:nocov:

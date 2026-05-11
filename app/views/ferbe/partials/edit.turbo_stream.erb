@@ -1,3 +1,12 @@
 <%= turbo_stream.update "ferbe-editor" do %>
-  <pre><code><%= @partial[:code] %></code></pre>
+  <div data-controller="ferbe-editor">
+    <%= form_with url: partial_url, method: :patch, scope: :partial do |form| %>
+      <%= form.hidden_field :path, value: @partial[:path] %>
+      <%= form.hidden_field :content,
+                        value: @partial[:content],
+                        data: { ferbe_editor_target: "input" } %>
+      <pre><code data-ferbe-editor-target="editor"><%= @partial[:content] %></code></pre>
+      <%= form.submit %>
+    <% end %>
+  </div>
 <% end %>

@@ -1,9 +1,9 @@
 module Ferbe
-  if Ferbe.configuration.enabled
-    class Engine < ::Rails::Engine
-      isolate_namespace Ferbe
+  class Engine < ::Rails::Engine
+    isolate_namespace Ferbe
 
-      # :nocov: -> manually tested by T08
+    # :nocov: -> covered by manual system tests
+    if Ferbe.configuration.enabled
       initializer "ferbe.partial_wrapping" do
         require "ferbe/partial_wrapping"
 
@@ -14,22 +14,19 @@ module Ferbe
           ActionView::PartialRenderer.prepend(Ferbe::PartialWrapping)
         end
       end
-      # :nocov:
 
-      # :nocov: -> the manual tests wouldn't work without this
       initializer "ferbe.view_helpers" do
         ActiveSupport.on_load :action_view do
           require "ferbe/helper"
           ActionView::Base.include Ferbe::Helper
         end
       end
-      # :nocov:
 
       initializer "ferbe.assets" do |app|
         if app.config.respond_to?(:assets)
           app.config.assets.paths << root.join("app/assets/javascripts")
           app.config.assets.paths << root.join("app/assets/stylesheets")
-          app.config.assets.precompile += %w[ferbe/application.css ferbe/application.js]
+          app.config.assets.precompile += %w[ferbe/application.css ferbe/highlight.css ferbe/application.js]
         end
       end
 

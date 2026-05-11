@@ -5,7 +5,8 @@ module Ferbe
       return head :bad_request unless valid_path? partial_params[:path]
 
       @partial = {
-        code: File.read(partial_params[:path])
+        content: File.read(partial_params[:path]),
+        path: partial_params[:path]
       }
 
       respond_to do |format|
@@ -20,7 +21,7 @@ module Ferbe
       return head :bad_request unless valid_path? partial_params[:path]
 
       File.write(partial_params[:path], partial_params[:content])
-      render turbo_stream: turbo_stream.action(:reload, "")
+      render turbo_stream: turbo_stream.action(:refresh, "")
     end
 
     private

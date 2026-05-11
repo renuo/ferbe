@@ -7,6 +7,11 @@
     overflow: auto;
   }
 
+  .ferbe__editor * {
+    all: revert;
+    box-sizing: border-box;
+  }
+
   .ferbe__editor:has(> *) {
     width: min(50vw, 60rem);
     overflow: auto;

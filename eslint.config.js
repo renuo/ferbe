@@ -6,7 +6,7 @@ import eslintConfigPrettier from "eslint-config-prettier";
 export default defineConfig([
   js.configs.recommended,
   {
-    files: ["app/javascript/**/*.js"],
+    files: ["app/assets/javascripts/**/*.js"],
     languageOptions: {
       globals: {
         ...globals.browser,
