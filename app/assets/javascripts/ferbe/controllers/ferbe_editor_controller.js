@@ -26,6 +26,10 @@ export default class FerbeEditorController extends Controller {
     this.jar.destroy();
   }
 
+  close() {
+    this.element.remove();
+  }
+
   #highlight(editor) {
     const code = editor.textContent;
     const result = hljs.highlight(code, { language: "erb" });

@@ -1,19 +1,57 @@
+:root {
+  --ferbe-color-light-grey: #fafafa;
+  --ferbe-color-grey: #dedede;
+
+  --ferbe-border: 2px solid var(--ferbe-color-grey);
+}
+
 .ferbe__page {
   display: flex;
   height: 100vh;
 
   & > main {
     flex-grow: 1;
-    overflow: auto;
   }
 
   .ferbe__editor * {
     all: revert;
-    box-sizing: border-box;
   }
 
-  .ferbe__editor:has(> *) {
+  .ferbe__editor > div {
     width: min(50vw, 60rem);
+    padding: 1rem;
     overflow: auto;
+
+    pre:has(code) {
+      padding: 1rem;
+      border: var(--ferbe-border);
+      border-radius: 0.5rem;
+
+      background-color: var(--ferbe-color-light-grey);
+      overflow: auto;
+      cursor: text;
+
+      code {
+        /* CodeJar override */
+        white-space: nowrap !important;
+      }
+    }
+
+    .button {
+      width: 2.5rem;
+      height: 2.5rem;
+      padding: 0.5rem;
+      border: var(--ferbe-border);
+      border-radius: 0.5rem;
+
+      background-color: var(--ferbe-color-light-grey);
+      font: inherit;
+      line-height: normal;
+      cursor: pointer;
+
+      &.save-button {
+        width: 100%;
+      }
+    }
   }
 }
