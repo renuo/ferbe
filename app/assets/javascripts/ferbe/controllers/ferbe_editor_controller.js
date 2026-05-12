@@ -10,7 +10,7 @@ hljs.registerLanguage("ruby", ruby);
 hljs.registerLanguage("erb", erb);
 
 export default class FerbeEditorController extends Controller {
-  static targets = ["editor", "input"];
+  static targets = ["editor", "form", "input"];
 
   connect() {
     this.jar = CodeJar(this.editorTarget, this.#highlight, { tab: "  " });
@@ -28,6 +28,10 @@ export default class FerbeEditorController extends Controller {
 
   close() {
     this.element.remove();
+  }
+
+  save() {
+    this.formTarget.requestSubmit();
   }
 
   #highlight(editor) {

@@ -15,12 +15,17 @@
                                data: { turbo_stream: true }) %>
 <% end %>
 </pre>
-    <%= form_with url: partial_url, method: :patch, scope: :partial do |form| %>
+    <%= form_with url: partial_url,
+                  method: :patch,
+                  scope: :partial,
+                  data: { ferbe_editor_target: "form" } do |form| %>
       <%= form.hidden_field :path, value: @partial[:path] %>
       <%= form.hidden_field :content,
                             value: @partial[:content],
                             data: { ferbe_editor_target: "input" } %>
-      <pre><code data-ferbe-editor-target="editor"><%= @partial[:content] %></code></pre>
+      <pre><code data-ferbe-editor-target="editor"
+                 data-action="keydown.ctrl+s->ferbe-editor#save:prevent
+                              keydown.meta+s->ferbe-editor#save:prevent"><%= @partial[:content] %></code></pre>
       <%= form.submit "💾", class: "ferbe__button ferbe__save-button" %>
     <% end %>
   </div>
