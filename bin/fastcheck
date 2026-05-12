@@ -25,4 +25,4 @@ npx prettier . --write
 npx stylelint "./app/assets/stylesheets/**/*.css"
 
 # for javascript
-npx eslint app/javascript
+npx eslint "./app/assets/javascripts/**/*.js"

@@ -1,15 +1,85 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+:root {
+  --ferbe-color-light-grey: #fafafa;
+  --ferbe-color-grey: #dedede;
+  --ferbe-color-blue: #0033b3;
+  --ferbe-border: 2px solid var(--ferbe-color-grey);
+}
+
+.ferbe__page {
+  display: flex;
+  height: 100vh;
+
+  & > main {
+    flex-grow: 1;
+  }
+
+  .ferbe__editor * {
+    all: revert;
+  }
+
+  .ferbe__editor > div {
+    width: min(50vw, 60rem);
+    padding: 1rem;
+    overflow: auto;
+    font-family: sans-serif;
+
+    pre {
+      padding: 1rem;
+      border: var(--ferbe-border);
+      border-radius: 0.5rem;
+      background-color: var(--ferbe-color-light-grey);
+      overflow: auto;
+      cursor: text;
+
+      code {
+        /* CodeJar override */
+        white-space: nowrap !important;
+      }
+    }
+
+    .ferbe__button {
+      width: 2.5rem;
+      height: 2.5rem;
+      padding: 0.5rem;
+      border: var(--ferbe-border);
+      border-radius: 0.5rem;
+      background-color: var(--ferbe-color-light-grey);
+      font: inherit;
+      line-height: normal;
+      cursor: pointer;
+
+      &.ferbe__save-button {
+        width: 100%;
+      }
+    }
+
+    .ferbe__header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-block: 1rem 2rem;
+      padding-bottom: 1rem;
+      border-bottom: var(--ferbe-border);
+
+      h2 {
+        margin: 0;
+        font-size: 1.5rem;
+      }
+    }
+
+    .ferbe__render-path {
+      max-height: 20rem;
+      overflow: auto;
+      margin-bottom: 2rem;
+
+      a {
+        text-decoration: none;
+        color: var(--ferbe-color-blue);
+
+        &:visited {
+          color: var(--ferbe-color-blue);
+        }
+      }
+    }
+  }
+}

@@ -19,14 +19,18 @@
   <script src="https://unpkg.com/@knadh/oat/oat.min.js" defer></script>
 
   <%= stylesheet_link_tag :app %>
+  <%= ferbe_styles_tag %>
   <%= javascript_importmap_tags %>
+  <%= ferbe_javascript_tag %>
 </head>
 
 <body>
-<main>
-  <%= yield %>
-</main>
+<div class="ferbe__page">
+  <main>
+    <%= yield %>
+  </main>
 
-<%= ferbe_editor_tag %>
+  <%= ferbe_editor_tag %>
+</div>
 </body>
 </html>
