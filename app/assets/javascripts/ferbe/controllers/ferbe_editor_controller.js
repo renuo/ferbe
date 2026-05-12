@@ -12,7 +12,7 @@ export default class FerbeEditorController extends Controller {
     this.#setupHighlighting();
     this.#highlight(this.editorTarget);
     this.#preventUnsavedClosing();
-    this.#setupErrorHandler();
+    this.#setupErrorHandling();
   }
 
   disconnect() {
@@ -59,20 +59,24 @@ export default class FerbeEditorController extends Controller {
     };
   }
 
-  #setupErrorHandler() {
+  #setupErrorHandling() {
     addEventListener("turbo:before-fetch-response", (event) => {
       const response = event.detail.fetchResponse;
       if (response.statusCode !== 500) return;
 
       event.preventDefault();
       document.documentElement.removeAttribute("aria-busy");
-      this.#displayError(response);
+      this.#displayError({
+        message: `${response.statusCode} ${response.response.statusText}`,
+        url: response.response.url
+      });
     });
   }
 
-  #displayError(response) {
-    this.errorContainerTarget.innerHTML = `There is an error that was likely caused by your edit:
-${response.statusCode} ${response.response.statusText}
-<a href="${response.response.url}" target="_blank">Open in new tab</a>`;
+  #displayError({message, url}) {
+    this.errorContainerTarget.innerHTML =
+`<strong>There is an error that was likely caused by your edit:</strong>
+${message}
+<a href="${url}" target="_blank">Open in new tab</a>`;
   }
 }
