@@ -2,6 +2,8 @@ module Ferbe
   module Helper
     #:nocov: -> tested implicitly through all manual system tests
     def ferbe_styles_tag
+      return unless Ferbe.configuration.enabled
+
       capture do
         concat stylesheet_link_tag "ferbe/highlight", media: "all"
         concat stylesheet_link_tag "ferbe/application", media: "all"
@@ -9,6 +11,8 @@ module Ferbe
     end
 
     def ferbe_javascript_tag
+      return unless Ferbe.configuration.enabled
+
       javascript_import_module_tag "ferbe"
     end
 

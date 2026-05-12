@@ -5,31 +5,18 @@ import erb from "highlight.js/lib/languages/erb";
 import xml from "highlight.js/lib/languages/xml";
 import ruby from "highlight.js/lib/languages/ruby";
 
-hljs.registerLanguage("xml", xml);
-hljs.registerLanguage("ruby", ruby);
-hljs.registerLanguage("erb", erb);
-
 export default class FerbeEditorController extends Controller {
   static targets = ["editor", "form", "input"];
 
   connect() {
-    this.originalContent = this.inputTarget.value;
-    this.jar = CodeJar(this.editorTarget, this.#highlight, { tab: "  " });
-
-    this.jar.onUpdate((code) => {
-      this.inputTarget.value = code;
-    });
-
+    this.#setupHighlighting();
     this.#highlight(this.editorTarget);
-
-    window.onbeforeunload = () => {
-      if (this.#hasUnsavedChanges())
-        return "There are unsaved changes in the ferbe editor.";
-    };
+    this.#preventUnsavedClosing();
   }
 
   disconnect() {
     this.jar.destroy();
+    window.onbeforeunload = null;
   }
 
   close() {
@@ -40,13 +27,33 @@ export default class FerbeEditorController extends Controller {
     this.formTarget.requestSubmit();
   }
 
+  #hasUnsavedChanges() {
+    return this.originalContent !== this.inputTarget.value;
+  }
+
+  #setupHighlighting() {
+    hljs.registerLanguage("xml", xml);
+    hljs.registerLanguage("ruby", ruby);
+    hljs.registerLanguage("erb", erb);
+
+    this.originalContent = this.inputTarget.value;
+    this.jar = CodeJar(this.editorTarget, this.#highlight, { tab: "  " });
+
+    this.jar.onUpdate((code) => {
+      this.inputTarget.value = code;
+    });
+  }
+
   #highlight(editor) {
     const code = editor.textContent;
     const result = hljs.highlight(code, { language: "erb" });
     editor.innerHTML = result.value;
   }
 
-  #hasUnsavedChanges() {
-    return this.originalContent !== this.inputTarget.value;
+  #preventUnsavedClosing() {
+    window.onbeforeunload = () => {
+      if (this.#hasUnsavedChanges())
+        return "There are unsaved changes in the ferbe editor.";
+    };
   }
 }

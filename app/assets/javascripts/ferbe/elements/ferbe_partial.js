@@ -48,12 +48,7 @@ export default class FerbePartial extends HTMLElement {
 
     const params = new URLSearchParams();
     params.append("partial[path]", path);
-
-    if (Array.isArray(renderPath)) {
-      renderPath.forEach((p) => params.append("partial[render_path][]", p));
-    } else {
-      params.append("partial[render_path]", renderPath);
-    }
+    renderPath.forEach((p) => params.append("partial[render_path][]", p));
 
     fetch(`/ferbe/partial/edit?${params.toString()}`, {
       headers: { Accept: "text/vnd.turbo-stream.html" },
