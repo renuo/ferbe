@@ -1,6 +1,6 @@
 Ferbe.configure do |config|
   # Whether the gem is active or not.
-  config.enabled = false
+  # config.enabled = false
 
   # The modifier key used for opening a partial.
   # The possible options are: "alt", "ctrl", "shift", "ctrl/cmd"

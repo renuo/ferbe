@@ -6,17 +6,19 @@ import xml from "highlight.js/lib/languages/xml";
 import ruby from "highlight.js/lib/languages/ruby";
 
 export default class FerbeEditorController extends Controller {
-  static targets = ["editor", "form", "input"];
+  static targets = ["editor", "form", "input", "errorContainer"];
 
   connect() {
     this.#setupHighlighting();
     this.#highlight(this.editorTarget);
     this.#preventUnsavedClosing();
+    this.#setupErrorHandler();
   }
 
   disconnect() {
     this.jar.destroy();
     window.onbeforeunload = null;
+    this.errorContainerTarget.innerHTML = "";
   }
 
   close() {
@@ -55,5 +57,22 @@ export default class FerbeEditorController extends Controller {
       if (this.#hasUnsavedChanges())
         return "There are unsaved changes in the ferbe editor.";
     };
+  }
+
+  #setupErrorHandler() {
+    addEventListener("turbo:before-fetch-response", (event) => {
+      const response = event.detail.fetchResponse;
+      if (response.statusCode !== 500) return;
+
+      event.preventDefault();
+      document.documentElement.removeAttribute("aria-busy");
+      this.#displayError(response);
+    });
+  }
+
+  #displayError(response) {
+    this.errorContainerTarget.innerHTML = `There is an error that was likely caused by your edit:
+${response.statusCode} ${response.response.statusText}
+<a href="${response.response.url}" target="_blank">Open in new tab</a>`;
   }
 }

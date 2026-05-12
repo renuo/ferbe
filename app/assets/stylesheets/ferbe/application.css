@@ -2,6 +2,8 @@
   --ferbe-color-light-grey: #fafafa;
   --ferbe-color-grey: #dedede;
   --ferbe-color-blue: #0033b3;
+  --ferbe-color-red: #f6817f;
+  --ferbe-color-light-red: #ff9b99;
   --ferbe-border: 2px solid var(--ferbe-color-grey);
 }
 
@@ -79,6 +81,15 @@
         &:visited {
           color: var(--ferbe-color-blue);
         }
+      }
+    }
+
+    .ferbe__error-container {
+      border-color: var(--ferbe-color-red);
+      background-color: var(--ferbe-color-light-red);
+
+      &:not(:has(*)) {
+        display: none;
       }
     }
   }
