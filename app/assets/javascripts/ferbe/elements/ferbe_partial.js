@@ -2,10 +2,15 @@ export default class FerbePartial extends HTMLElement {
   connectedCallback() {
     const editor = document.getElementById("ferbe-editor");
     this.modifierKey = editor?.dataset?.modifierKey || "alt";
+    this.useLocalEditor = editor?.dataset?.useLocalEditor || false;
+
+    this.open = this.useLocalEditor
+      ? this.#openInLocalEditor
+      : this.#openInEditor;
 
     this.onclick = async (event) => {
       event.stopPropagation();
-      if (this.#isModifierKeyPressed(event)) this.#openInEditor();
+      if (this.#isModifierKeyPressed(event)) this.open();
     };
   }
 
@@ -18,6 +23,23 @@ export default class FerbePartial extends HTMLElement {
     };
 
     return !!modifierKeys[this.modifierKey];
+  }
+
+  #openInLocalEditor() {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+
+    fetch("/ferbe/partial/edit_locally", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        "X-CSRF-Token": csrfToken,
+      },
+      body: JSON.stringify({
+        partial: {
+          path: this.getAttribute("path"),
+        },
+      }),
+    });
   }
 
   #openInEditor() {

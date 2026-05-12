@@ -16,6 +16,19 @@ module Ferbe
       end
     end
 
+    # :nocov: -> covered by manual system tests
+    def edit_locally
+      partial_params = params.require(:partial).permit(:path)
+
+      if valid_path? partial_params[:path]
+        editor_path = ENV["EDITOR"]
+        head :ok if system("#{editor_path} #{partial_params[:path]}")
+      else
+        head :bad_request
+      end
+    end
+    # :nocov:
+
     def update
       partial_params = params.require(:partial).permit(:path, :content)
 

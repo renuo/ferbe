@@ -13,6 +13,7 @@ export default class FerbeEditorController extends Controller {
   static targets = ["editor", "form", "input"];
 
   connect() {
+    this.originalContent = this.inputTarget.value;
     this.jar = CodeJar(this.editorTarget, this.#highlight, { tab: "  " });
 
     this.jar.onUpdate((code) => {
@@ -20,6 +21,11 @@ export default class FerbeEditorController extends Controller {
     });
 
     this.#highlight(this.editorTarget);
+
+    window.onbeforeunload = () => {
+      if (this.#hasUnsavedChanges())
+        return "There are unsaved changes in the ferbe editor.";
+    };
   }
 
   disconnect() {
@@ -38,5 +44,9 @@ export default class FerbeEditorController extends Controller {
     const code = editor.textContent;
     const result = hljs.highlight(code, { language: "erb" });
     editor.innerHTML = result.value;
+  }
+
+  #hasUnsavedChanges() {
+    return this.originalContent !== this.inputTarget.value;
   }
 }
