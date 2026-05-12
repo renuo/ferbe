@@ -2,7 +2,7 @@ export default class FerbePartial extends HTMLElement {
   connectedCallback() {
     const editor = document.getElementById("ferbe-editor");
     this.modifierKey = editor?.dataset?.modifierKey || "alt";
-    this.useLocalEditor = editor?.dataset?.useLocalEditor || false;
+    this.useLocalEditor = editor?.dataset?.useLocalEditor === "true";
 
     this.open = this.useLocalEditor
       ? this.#openInLocalEditor
