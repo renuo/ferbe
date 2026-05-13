@@ -10,6 +10,10 @@ An in-browser split view editor to quickly…
 >[!NOTE]
 > Ferbe can also be configured to open the partials in any local editor
 
+## Demo
+
+https://github.com/user-attachments/assets/a21e2e19-02ce-426c-882d-d07a637b13a0
+
 ## Usage
 
 To open a partial in the editor, press your modifier key (`alt/option` by default) and click on any element on your page that is inside a partial.
