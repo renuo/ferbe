@@ -6,12 +6,12 @@ Gem::Specification.new do |spec|
   spec.authors = ["Tim Landolt"]
   spec.email = ["tim.landolt@renuo.ch"]
   spec.homepage = "https://github.com/renuo/ferbe"
-  spec.summary = "TODO: Summary of Ferbe."
+  spec.summary = "Faster erb (partial) editing. A gem that adds a split view editor for erb partials."
 
   spec.metadata["allowed_push_host"] = "TODO: eventually set"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "TODO: Put your gem's public repo URL here."
+  spec.metadata["source_code_uri"] = "https://github.com/renuo/ferbe"
   spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
 
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
