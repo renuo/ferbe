@@ -68,14 +68,13 @@ export default class FerbeEditorController extends Controller {
       document.documentElement.removeAttribute("aria-busy");
       this.#displayError({
         message: `${response.statusCode} ${response.response.statusText}`,
-        url: response.response.url
+        url: response.response.url,
       });
     });
   }
 
-  #displayError({message, url}) {
-    this.errorContainerTarget.innerHTML =
-`<strong>There is an error that was likely caused by your edit:</strong>
+  #displayError({ message, url }) {
+    this.errorContainerTarget.innerHTML = `<strong>There is an error that was likely caused by your edit:</strong>
 ${message}
 <a href="${url}" target="_blank">Open in new tab</a>`;
   }
