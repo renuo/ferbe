@@ -3,7 +3,7 @@ require "ferbe/partial_wrapper"
 
 module Ferbe
   module PartialWrapping
-    def render(context, options, block)
+    def render(...)
       result = super
       wrapped_body = Ferbe.partial_wrapper.wrap(
         body: result.body,

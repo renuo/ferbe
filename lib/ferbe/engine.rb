@@ -13,6 +13,7 @@ module Ferbe
 
       ActiveSupport.on_load(:action_view) do
         ActionView::PartialRenderer.prepend(Ferbe::PartialWrapping)
+        ActionView::TemplateRenderer.prepend(Ferbe::PartialWrapping)
       end
     end
 
