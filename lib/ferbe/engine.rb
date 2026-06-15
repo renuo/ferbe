@@ -12,8 +12,7 @@ module Ferbe
       Ferbe.partial_wrapper = Ferbe::PartialWrapper.new(Ferbe.wrapper_tag)
 
       ActiveSupport.on_load(:action_view) do
-        ActionView::PartialRenderer.prepend(Ferbe::PartialWrapping)
-        ActionView::TemplateRenderer.prepend(Ferbe::PartialWrapping)
+        ActionView::Template.prepend(Ferbe::PartialWrapping)
       end
     end
 
