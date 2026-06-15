@@ -1,10 +1,10 @@
 require "test_helper"
-require "ferbe/partial_wrapper"
+require "ferbe/template_wrapper"
 
 module Ferbe
-  class PartialWrapperTest < ActiveSupport::TestCase
+  class TemplateWrapperTest < ActiveSupport::TestCase
     setup do
-      @wrapper = Ferbe::PartialWrapper.new("test")
+      @wrapper = Ferbe::TemplatelWrapper.new("test")
     end
 
     test "wrapping a simple string" do

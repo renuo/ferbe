@@ -1,4 +1,4 @@
-export default class FerbePartial extends HTMLElement {
+export default class FerbeTemplate extends HTMLElement {
   connectedCallback() {
     const editor = document.getElementById("ferbe-editor");
     this.modifierKey = editor?.dataset?.modifierKey || "alt";
@@ -28,14 +28,14 @@ export default class FerbePartial extends HTMLElement {
   #openInLocalEditor() {
     const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
-    fetch("/ferbe/partial/edit_locally", {
+    fetch("/ferbe/template/edit_locally", {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
         "X-CSRF-Token": csrfToken,
       },
       body: JSON.stringify({
-        partial: {
+        template: {
           path: this.getAttribute("path"),
         },
       }),
@@ -47,10 +47,10 @@ export default class FerbePartial extends HTMLElement {
     const renderPath = this.#getRenderPath();
 
     const params = new URLSearchParams();
-    params.append("partial[path]", path);
-    renderPath.forEach((p) => params.append("partial[render_path][]", p));
+    params.append("template[path]", path);
+    renderPath.forEach((p) => params.append("template[render_path][]", p));
 
-    fetch(`/ferbe/partial/edit?${params.toString()}`, {
+    fetch(`/ferbe/template/edit?${params.toString()}`, {
       headers: { Accept: "text/vnd.turbo-stream.html" },
     })
       .then((r) => r.text())
@@ -63,7 +63,7 @@ export default class FerbePartial extends HTMLElement {
     let element = this;
 
     while (element) {
-      if (element.tagName === "FERBE-PARTIAL") {
+      if (element.tagName === "FERBE-TEMPLATE") {
         renderPath.unshift(element.getAttribute("path"));
       }
       element = element.parentNode;

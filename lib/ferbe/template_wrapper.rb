@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Ferbe
-  class PartialWrapper
+  class TemplateWrapper
     attr_accessor :tag
 
     def initialize(tag)
@@ -10,6 +10,9 @@ module Ferbe
 
     def wrap(body:, path: nil)
       "<#{tag}#{" path=\"#{path}\"" if path}>#{body}</#{tag}>"
+      # content_tag tag, path: path do
+      #   body
+      # end
     end
   end
 end

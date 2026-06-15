@@ -6,6 +6,6 @@ class LayoutWrappingTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_match(/\A<!DOCTYPE html>/, @response.body)
-    refute_match(/\A<ferbe-partial/, @response.body)
+    refute_match(/\A<ferbe-template/, @response.body)
   end
 end

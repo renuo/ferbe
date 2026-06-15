@@ -1,13 +1,13 @@
 # :nocov: -> covered by manual system tests
-require "ferbe/partial_wrapper"
+require "ferbe/template_wrapper"
 
 module Ferbe
-  module PartialWrapping
+  module TemplateWrapping
     def render(...)
       content = super
       return content if skip_wrapping?
 
-      Ferbe.partial_wrapper.wrap(
+      Ferbe.template_wrapper.wrap(
         body: content,
         path: identifier
       ).html_safe

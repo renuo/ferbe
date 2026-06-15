@@ -5,7 +5,7 @@ require_relative "../test/dummy/config/environment"
 def measure
   # Warm up to ensure everything is loaded and cached
   20.times { HomeController.render(partial: "shared/tower", locals: { counter: 10 }) }
-  
+
   n = 1000
   start = Process.clock_gettime(Process::CLOCK_MONOTONIC)
   n.times { HomeController.render(partial: "shared/tower", locals: { counter: 10 }) }
@@ -17,7 +17,7 @@ puts "Ferbe Status: #{enabled ? 'ENABLED' : 'DISABLED'}"
 
 if enabled
   output = HomeController.render(partial: "shared/tower", locals: { counter: 1 })
-  unless output.include?("ferbe-partial")
+  unless output.include?("ferbe-template")
     puts "❌ ERROR: Ferbe is enabled but tags are missing from output!"
     exit 1
   end

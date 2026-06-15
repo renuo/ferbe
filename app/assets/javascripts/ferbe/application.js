@@ -1,3 +1,3 @@
-import FerbePartial from "ferbe/elements/ferbe_partial";
+import FerbeTemplate from "ferbe/elements/ferbe_template";
 
-customElements.define("ferbe-partial", FerbePartial);
+customElements.define("ferbe-template", FerbeTemplate);
