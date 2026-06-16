@@ -4,7 +4,7 @@ require "ferbe/template_wrapper"
 module Ferbe
   class TemplateWrapperTest < ActiveSupport::TestCase
     setup do
-      @wrapper = Ferbe::TemplatelWrapper.new("test")
+      @wrapper = Ferbe::TemplateWrapper.new("test")
     end
 
     test "wrapping a simple string" do
