@@ -10,6 +10,17 @@ module Ferbe
       assert_response :bad_request
     end
 
+    test "protection from directory traversal" do
+      Tempfile.create(["test", ".erb"]) do |file|
+        depth = Rails.root.to_s.split(File::SEPARATOR).count
+        traversal_dots = "../" * depth
+        traversed_file = File.join(Rails.root.to_s, traversal_dots, file)
+
+        patch template_url, params: {template: {path: traversed_file, content: "bar"}}
+        assert_response :bad_request
+      end
+    end
+
     test "rejection of non-erb path" do
       Tempfile.create(["test", ".rb"], Rails.root.join("tmp")) do |file|
         patch template_url, params: {template: {path: file.path, content: "bar"}}
