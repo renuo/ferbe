@@ -10,6 +10,17 @@ module Ferbe
       assert_response :bad_request
     end
 
+    test "protection from directory traversal" do
+      Tempfile.create(["test", ".erb"]) do |file|
+        depth = Rails.root.to_s.split(File::SEPARATOR).count
+        traversal_dots = "../" * depth
+        traversed_file = File.join(Rails.root.to_s, traversal_dots, file)
+
+        patch template_url, params: {template: {path: traversed_file, content: "bar"}}
+        assert_response :bad_request
+      end
+    end
+
     test "rejection of non-erb path" do
       Tempfile.create(["test", ".rb"], Rails.root.join("tmp")) do |file|
         patch template_url, params: {template: {path: file.path, content: "bar"}}
@@ -24,7 +35,7 @@ module Ferbe
     end
 
     test "update valid path" do
-      Tempfile.create(["test", ".erb"], Rails.root.join("tmp")) do |file|
+      Tempfile.create(["test", ".erb"], Rails.root.join("app/views")) do |file|
         new_content = "new content"
 
         patch template_url, params: {template: {path: file.path, content: new_content}}
@@ -35,7 +46,7 @@ module Ferbe
     end
 
     test "edit as html returns no content" do
-      Tempfile.create(["test", ".html.erb"], Rails.root.join("tmp")) do |file|
+      Tempfile.create(["test", ".html.erb"], Rails.root.join("app/views")) do |file|
         file.write "I am a template!"
 
         get edit_template_url, params: {template: {path: file.path}}
