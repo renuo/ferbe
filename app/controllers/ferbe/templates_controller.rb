@@ -41,9 +41,12 @@ module Ferbe
     private
 
     def valid_path?(path)
-      File.readable?(path) &&
-        path.include?(Rails.root.to_s) &&
-        path.ends_with?(".erb")
+      expanded_path = File.expand_path path
+      views_path = File.join(Rails.root, "/app/views")
+
+      File.readable?(expanded_path) &&
+        expanded_path.start_with?(views_path) &&
+        expanded_path.ends_with?(".erb")
     end
   end
 end

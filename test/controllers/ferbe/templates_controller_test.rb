@@ -35,7 +35,7 @@ module Ferbe
     end
 
     test "update valid path" do
-      Tempfile.create(["test", ".erb"], Rails.root.join("tmp")) do |file|
+      Tempfile.create(["test", ".erb"], Rails.root.join("app/views")) do |file|
         new_content = "new content"
 
         patch template_url, params: {template: {path: file.path, content: new_content}}
@@ -46,7 +46,7 @@ module Ferbe
     end
 
     test "edit as html returns no content" do
-      Tempfile.create(["test", ".html.erb"], Rails.root.join("tmp")) do |file|
+      Tempfile.create(["test", ".html.erb"], Rails.root.join("app/views")) do |file|
         file.write "I am a template!"
 
         get edit_template_url, params: {template: {path: file.path}}
