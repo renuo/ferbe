@@ -3,16 +3,16 @@ module Ferbe
     isolate_namespace Ferbe
 
     # :nocov: -> covered by manual system tests
-    initializer "ferbe.partial_wrapping" do
+    initializer "ferbe.template_wrapping" do
       next unless Ferbe.configuration.enabled
 
-      require "ferbe/partial_wrapping"
+      require "ferbe/template_wrapping"
 
-      Ferbe.wrapper_tag = "ferbe-partial"
-      Ferbe.partial_wrapper = Ferbe::PartialWrapper.new(Ferbe.wrapper_tag)
+      Ferbe.wrapper_tag = "ferbe-template"
+      Ferbe.template_wrapper = Ferbe::TemplateWrapper.new(Ferbe.wrapper_tag)
 
       ActiveSupport.on_load(:action_view) do
-        ActionView::PartialRenderer.prepend(Ferbe::PartialWrapping)
+        ActionView::Template.prepend(Ferbe::TemplateWrapping)
       end
     end
 

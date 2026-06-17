@@ -5,6 +5,6 @@ require "turbo-rails"
 
 module Ferbe
   class << self
-    attr_accessor :partial_wrapper, :wrapper_tag
+    attr_accessor :template_wrapper, :wrapper_tag
   end
 end
