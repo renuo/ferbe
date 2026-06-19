@@ -11,6 +11,10 @@
   display: flex;
   min-height: 100vh;
 
+    iframe {
+      flex-grow: 1;
+  }
+
   .ferbe__editor * {
     all: revert;
   }
