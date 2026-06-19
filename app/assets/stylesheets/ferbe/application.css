@@ -9,14 +9,14 @@
 
 .ferbe__page {
   display: flex;
-  height: 100vh;
-
-  & > main {
-    flex-grow: 1;
-  }
+  min-height: 100vh;
 
   .ferbe__editor * {
     all: revert;
+  }
+
+  ferbe-template {
+    display: contents;
   }
 
   .ferbe__editor > div {
