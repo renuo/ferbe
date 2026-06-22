@@ -11,8 +11,8 @@
   display: flex;
   min-height: 100vh;
 
-    iframe {
-      flex-grow: 1;
+  iframe {
+    flex-grow: 1;
   }
 
   .ferbe__editor * {
@@ -85,15 +85,6 @@
         &:visited {
           color: var(--ferbe-color-blue);
         }
-      }
-    }
-
-    .ferbe__error-container {
-      border-color: var(--ferbe-color-red);
-      background-color: var(--ferbe-color-light-red);
-
-      &:empty {
-        display: none;
       }
     }
   }

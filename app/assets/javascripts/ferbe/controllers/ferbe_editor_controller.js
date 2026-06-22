@@ -1,18 +1,17 @@
-import { Controller } from "@hotwired/stimulus";
-import { CodeJar } from "codejar";
+import {Controller} from "@hotwired/stimulus";
+import {CodeJar} from "codejar";
 import hljs from "highlight.js/lib/core";
 import erb from "highlight.js/lib/languages/erb";
 import xml from "highlight.js/lib/languages/xml";
 import ruby from "highlight.js/lib/languages/ruby";
 
 export default class FerbeEditorController extends Controller {
-  static targets = ["editor", "form", "input", "errorContainer"];
+  static targets = ["editor", "form", "input"];
 
   connect() {
     this.#setupHighlighting();
     this.#highlight(this.editorTarget);
     this.#preventUnsavedClosing();
-    this.#setupErrorHandling();
   }
 
   disconnect() {
@@ -22,7 +21,8 @@ export default class FerbeEditorController extends Controller {
   }
 
   close() {
-    this.element.remove();
+    const params = new URLSearchParams(document.location.search);
+    window.location = params.get("url");
   }
 
   save() {
@@ -57,25 +57,5 @@ export default class FerbeEditorController extends Controller {
       if (this.#hasUnsavedChanges())
         return "There are unsaved changes in the ferbe editor.";
     };
-  }
-
-  #setupErrorHandling() {
-    addEventListener("turbo:before-fetch-response", (event) => {
-      const response = event.detail.fetchResponse;
-      if (response.statusCode !== 500) return;
-
-      event.preventDefault();
-      document.documentElement.removeAttribute("aria-busy");
-      this.#displayError({
-        message: `${response.statusCode} ${response.response.statusText}`,
-        url: response.response.url,
-      });
-    });
-  }
-
-  #displayError({ message, url }) {
-    this.errorContainerTarget.innerHTML = `<strong>There is an error that was likely caused by your edit:</strong>
-${message}
-<a href="${url}" target="_blank">Open in new tab</a>`;
   }
 }
