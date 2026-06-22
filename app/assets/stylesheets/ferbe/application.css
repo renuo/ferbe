@@ -2,9 +2,10 @@
   --ferbe-color-light-grey: #fafafa;
   --ferbe-color-grey: #dedede;
   --ferbe-color-blue: #0033b3;
-  --ferbe-color-red: #f6817f;
-  --ferbe-color-light-red: #ff9b99;
   --ferbe-border: 2px solid var(--ferbe-color-grey);
+}
+body {
+  margin: 0;
 }
 
 .ferbe__page {
@@ -12,11 +13,8 @@
   min-height: 100vh;
 
   iframe {
+    all: unset;
     flex-grow: 1;
-  }
-
-  .ferbe__editor * {
-    all: revert;
   }
 
   ferbe-template {
