@@ -7,7 +7,9 @@
 
   <%= yield :head %>
 
-  <%= stylesheet_link_tag "ferbe/application", media: "all" %>
+  <%= ferbe_styles_tag %>
+  <%= javascript_importmap_tags %>
+  <%= ferbe_javascript_tag %>
 </head>
 <body>
 
