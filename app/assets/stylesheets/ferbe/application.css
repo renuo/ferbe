@@ -4,6 +4,7 @@
   --ferbe-color-blue: #0033b3;
   --ferbe-border: 2px solid var(--ferbe-color-grey);
 }
+
 body {
   margin: 0;
 }

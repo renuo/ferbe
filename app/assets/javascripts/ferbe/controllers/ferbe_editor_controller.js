@@ -1,5 +1,5 @@
-import {Controller} from "@hotwired/stimulus";
-import {CodeJar} from "codejar";
+import { Controller } from "@hotwired/stimulus";
+import { CodeJar } from "codejar";
 import hljs from "highlight.js/lib/core";
 import erb from "highlight.js/lib/languages/erb";
 import xml from "highlight.js/lib/languages/xml";
@@ -18,6 +18,25 @@ export default class FerbeEditorController extends Controller {
     this.jar.destroy();
     window.onbeforeunload = null;
     this.errorContainerTarget.innerHTML = "";
+  }
+
+  open(event) {
+    const template = event.detail;
+
+    const params = new URLSearchParams();
+    params.append("template[path]", template.filePath);
+    template.renderPath.forEach((p) =>
+      params.append("template[render_path][]", p),
+    );
+
+    fetch(`/ferbe/template/edit?${params.toString()}`, {
+      headers: { Accept: "text/vnd.turbo-stream.html" },
+    })
+      .then((r) => r.text())
+      .then((html) => {
+        Turbo.renderStreamMessage(html);
+      })
+      .catch((err) => console.error("Failed to open editor:", err));
   }
 
   close() {
