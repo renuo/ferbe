@@ -4,6 +4,7 @@ import hljs from "highlight.js/lib/core";
 import erb from "highlight.js/lib/languages/erb";
 import xml from "highlight.js/lib/languages/xml";
 import ruby from "highlight.js/lib/languages/ruby";
+import { editorUrl } from "ferbe/utils";
 
 export default class FerbeEditorController extends Controller {
   static targets = ["editor", "form", "input"];
@@ -17,7 +18,6 @@ export default class FerbeEditorController extends Controller {
   disconnect() {
     this.jar.destroy();
     window.onbeforeunload = null;
-    this.errorContainerTarget.innerHTML = "";
   }
 
   open(event) {
@@ -35,6 +35,7 @@ export default class FerbeEditorController extends Controller {
       .then((r) => r.text())
       .then((html) => {
         Turbo.renderStreamMessage(html);
+        window.history.pushState({}, "", editorUrl(template));
       })
       .catch((err) => console.error("Failed to open editor:", err));
   }
