@@ -23,7 +23,11 @@ export default class FerbeEditorController extends Controller {
   open(event) {
     const template = event.detail;
 
+    const currentParams = new URLSearchParams(document.location.search);
+    const url = currentParams.get("url");
+
     const params = new URLSearchParams();
+    params.append("url", url);
     params.append("template[path]", template.filePath);
     template.renderPath.forEach((p) =>
       params.append("template[render_path][]", p),

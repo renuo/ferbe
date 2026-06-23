@@ -1,19 +1,16 @@
 module Ferbe
   class TemplatesController < ApplicationController
     def edit
-      template_params = params.require(:template).permit(:path, render_path: [])
-      return head :bad_request unless valid_path? template_params[:path]
+      template = edit_params[:template]
+      return head :bad_request unless valid_path? template[:path]
 
       @template = {
-        content: File.read(template_params[:path]),
-        path: template_params[:path],
-        render_path: template_params[:render_path]
+        content: File.read(template[:path]),
+        path: template[:path],
+        render_path: template[:render_path]
       }
 
-      respond_to do |format|
-        format.turbo_stream
-        format.html { head :no_content }
-      end
+      @url = edit_params[:url]
     end
 
     # :nocov: -> covered by manual system tests
@@ -36,6 +33,15 @@ module Ferbe
 
       File.write(template_params[:path], template_params[:content])
       render turbo_stream: turbo_stream.action(:refresh, "")
+    end
+
+    private
+
+    def edit_params
+      {
+        template: params.require(:template).permit(:path, render_path: []),
+        url: params.require(:url)
+      }
     end
   end
 end

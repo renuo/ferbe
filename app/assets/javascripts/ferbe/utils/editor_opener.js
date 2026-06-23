@@ -20,5 +20,5 @@ export function editorUrl(template) {
     params.append("template[render_path][]", p),
   );
 
-  return `/ferbe/editor?${params.toString()}`;
+  return `/ferbe/template/edit?${params.toString()}`;
 }
