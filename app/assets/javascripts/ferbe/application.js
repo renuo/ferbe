@@ -1,15 +1,7 @@
-import FerbeTemplate from "ferbe/elements/ferbe_template";
-import { editorUrl } from "ferbe/utils";
+import { registerOpeningListener } from "ferbe/utils/editor_opener";
+import { application } from "controllers/application";
+import FerbeEditorController from "ferbe/controllers/ferbe_editor_controller";
 
-customElements.define("ferbe-template", FerbeTemplate);
+registerOpeningListener();
 
-addEventListener("ferbe:open-editor", (event) => {
-  const editor = document.getElementById("ferbe-editor");
-  if (editor) return;
-
-  openEditor(event.detail);
-});
-
-function openEditor(template) {
-  window.location.href = editorUrl(template);
-}
+application.register("ferbe-editor", FerbeEditorController);

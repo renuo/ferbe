@@ -4,5 +4,4 @@ pin "highlight.js/lib/languages/xml", to: "https://ga.jspm.io/npm:highlight.js@1
 pin "highlight.js/lib/languages/ruby", to: "https://ga.jspm.io/npm:highlight.js@11.11.1/es/languages/ruby.js"
 pin "codejar", to: "https://ga.jspm.io/npm:codejar@4.2.0/dist/codejar.js"
 
-pin "ferbe", to: "ferbe/application.js"
 pin_all_from Ferbe::Engine.root.join("app/assets/javascripts/ferbe"), under: "ferbe"
