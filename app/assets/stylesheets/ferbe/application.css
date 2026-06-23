@@ -18,10 +18,6 @@ body {
     flex-grow: 1;
   }
 
-  ferbe-template {
-    display: contents;
-  }
-
   .ferbe__editor > div {
     width: min(50vw, 60rem);
     padding: 1rem;
