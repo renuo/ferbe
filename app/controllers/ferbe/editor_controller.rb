@@ -1,10 +1,13 @@
 module Ferbe
   class EditorController < ApplicationController
     def show
+      template = editor_params[:template]
+      return head :bad_request unless valid_path? template[:path]
+
       @template = {
-        content: File.read(editor_params[:template][:path]),
-        path: editor_params[:template][:path],
-        render_path: editor_params[:template][:render_path]
+        content: File.read(template[:path]),
+        path: template[:path],
+        render_path: template[:render_path]
       }
 
       @url = editor_params[:url]
