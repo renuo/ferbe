@@ -45,11 +45,6 @@ export default class FerbeEditorController extends Controller {
       .catch((err) => console.error("Failed to open editor:", err));
   }
 
-  close() {
-    const params = new URLSearchParams(document.location.search);
-    window.location = params.get("url");
-  }
-
   save() {
     this.formTarget.requestSubmit();
   }

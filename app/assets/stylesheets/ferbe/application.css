@@ -54,6 +54,12 @@ body {
       }
     }
 
+    a.ferbe__button {
+      box-sizing: border-box;
+      text-decoration: none;
+      text-align: center;
+    }
+
     .ferbe__header {
       display: flex;
       align-items: baseline;

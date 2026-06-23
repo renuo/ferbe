@@ -3,7 +3,7 @@
 <div data-controller="ferbe-editor"
      data-action="ferbe:open-editor@window->ferbe-editor#open">
   <div class="ferbe__header">
-    <button data-action="ferbe-editor#close" class="ferbe__button">❌</button>
+    <%= link_to "❌", url, class: "ferbe__button" %>
     <h2><%= Pathname.new(template[:path]).relative_path_from(Rails.root) %></h2>
   </div>
   <pre class="ferbe__render-path">
