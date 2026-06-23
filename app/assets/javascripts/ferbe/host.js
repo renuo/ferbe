@@ -1,5 +1,12 @@
 import FerbeTemplate from "ferbe/elements/ferbe_template";
-import { registerOpeningListener } from "ferbe/utils/editor_opener";
+import editorUrl from "ferbe/utils/editor_url";
 
 customElements.define("ferbe-template", FerbeTemplate);
-registerOpeningListener();
+
+addEventListener("ferbe:open-editor", (event) => {
+  const editor = document.getElementById("ferbe-editor");
+  if (editor) return;
+
+  const template = event.detail
+  window.location.href = editorUrl(template);
+});

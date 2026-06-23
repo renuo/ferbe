@@ -1,10 +1,11 @@
+import editorUrl from "ferbe/utils/editor_url";
+
 import { Controller } from "@hotwired/stimulus";
 import { CodeJar } from "codejar";
 import hljs from "highlight.js/lib/core";
 import erb from "highlight.js/lib/languages/erb";
 import xml from "highlight.js/lib/languages/xml";
 import ruby from "highlight.js/lib/languages/ruby";
-import { editorUrl } from "ferbe/utils/editor_opener";
 
 export default class FerbeEditorController extends Controller {
   static targets = ["editor", "form", "input"];
