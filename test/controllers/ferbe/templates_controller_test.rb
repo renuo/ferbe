@@ -45,17 +45,25 @@ module Ferbe
       end
     end
 
-    test "edit as html returns no content" do
+    test "edit is available as turbo stream and html" do
       Tempfile.create(["test", ".html.erb"], Rails.root.join("app/views")) do |file|
         file.write "I am a template!"
 
-        get edit_template_url, params: {template: {path: file.path}}
-        assert_response :no_content
+        get edit_template_url,
+          params: {template: {path: file.path, render_path: [file.path]}, url: "http://example.com"}
+        assert_response :success
+
+        get edit_template_url,
+          params: {template: {path: file.path, render_path: [file.path]}, url: "http://example.com"},
+          as: :turbo_stream
+        assert_response :success
       end
     end
 
-    test "reject editing of invalid template" do
-      get edit_template_url, params: {template: {path: "some/invalid/file.txt"}}
+    test "rejection of editor for invalid template" do
+      invalid_path = "some/invalid/file.txt"
+      get edit_template_url,
+        params: {template: {path: invalid_path, render_path: [invalid_path]}, url: "http://example.com"}
       assert_response :bad_request
     end
   end
