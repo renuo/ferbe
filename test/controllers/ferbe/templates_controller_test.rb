@@ -49,13 +49,12 @@ module Ferbe
       Tempfile.create(["test", ".html.erb"], Rails.root.join("app/views")) do |file|
         file.write "I am a template!"
 
-        get edit_template_url,
-          params: {template: {path: file.path, render_path: [file.path]}, url: "http://example.com"}
+        params = {template: {path: file.path, render_path: [file.path]}, url: "http://example.com"}
+
+        get(edit_template_url, params:)
         assert_response :success
 
-        get edit_template_url,
-          params: {template: {path: file.path, render_path: [file.path]}, url: "http://example.com"},
-          as: :turbo_stream
+        get(edit_template_url, params:, as: :turbo_stream)
         assert_response :success
       end
     end
