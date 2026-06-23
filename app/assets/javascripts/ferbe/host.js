@@ -7,6 +7,6 @@ addEventListener("ferbe:open-editor", (event) => {
   const editor = document.getElementById("ferbe-editor");
   if (editor) return;
 
-  const template = event.detail
+  const template = event.detail;
   window.location.href = editorUrl(template);
 });

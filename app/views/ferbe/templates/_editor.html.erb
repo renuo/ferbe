@@ -1,4 +1,4 @@
-<%# locals: (template:)  %>
+<%# locals: (url:, template:)  %>
 
 <div data-controller="ferbe-editor"
      data-action="ferbe:open-editor@window->ferbe-editor#open">
@@ -9,10 +9,11 @@
   <pre class="ferbe__render-path">
 <% template[:render_path].each_with_index do |path, level| %>
 <%= " " * level %>> <%= link_to(Pathname.new(path).relative_path_from(Rails.root),
-                                edit_template_url(template: {
-                                  path: path,
-                                  render_path: template[:render_path]
-                                }),
+                                edit_template_url(url: ,
+                                                  template: {
+                                                    path: path,
+                                                    render_path: template[:render_path]
+                                                  }),
                                 data: { turbo_stream: true }) %>
 <% end %>
 </pre>

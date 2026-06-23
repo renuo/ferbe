@@ -6,6 +6,6 @@
     use_local_editor: Ferbe.configuration.use_local_editor,
     turbo_permanent: true
   } do %>
-    <%= render partial: "editor", locals: { template: @template } %>
+    <%= render partial: "editor", locals: { url: @url, template: @template } %>
   <% end %>
 </div>
