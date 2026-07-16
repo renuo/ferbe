@@ -34,7 +34,7 @@ body {
 
       code {
         /* CodeJar override */
-        white-space: nowrap !important;
+        white-space: pre !important;
       }
     }
 
