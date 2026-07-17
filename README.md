@@ -67,6 +67,7 @@ config.use_local_editor = false # or true
 ```
 
 ## Limitations
+
 Opening the editor opens a new page that displays the original page inside an iframe. This results in the following limitations:
 
 - Views returned by non-`GET` requests cannot be displayed. (The corresponding template can still be edited in the editor.)
