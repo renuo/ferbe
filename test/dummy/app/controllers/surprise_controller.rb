@@ -1,5 +1,12 @@
 class SurpriseController < ApplicationController
+  @@visit_count = 0
+
   def show
-    render :surprise if rand < 0.2
+    @@visit_count += 1
+
+    if @@visit_count >= 3
+      @@visit_count = 0
+      render :surprise
+    end
   end
 end
