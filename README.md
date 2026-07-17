@@ -66,6 +66,12 @@ The default is `false`.
 config.use_local_editor = false # or true
 ```
 
+## Limitations
+Opening the editor will open a new page where the old one is shown inside an iframe. This results in the following limitations:
+- Views shown by non-GET requests cannot be displayed. (The selected template can still be edited in the editor)
+  - In the dummy app this is illustrated on the "Cards" page. When deleting a view is shown that is only returned by the destroy action.
+- To display the page when editing, Ferbe sends a GET request to the currently open URL. This means, the controller actions have to be idempotent.
+
 ## Installation
 
 > [!NOTE]
