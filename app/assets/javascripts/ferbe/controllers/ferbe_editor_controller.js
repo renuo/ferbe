@@ -38,10 +38,7 @@ export default class FerbeEditorController extends Controller {
       headers: { Accept: "text/vnd.turbo-stream.html" },
     })
       .then((r) => r.text())
-      .then((html) => {
-        Turbo.renderStreamMessage(html);
-        window.history.pushState({}, "", editorUrl(template));
-      })
+      .then((html) => Turbo.renderStreamMessage(html))
       .catch((err) => console.error("Failed to open editor:", err));
   }
 
