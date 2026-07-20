@@ -69,7 +69,7 @@ config.use_local_editor = false # or true
 ## Installation
 
 > [!NOTE]
-> This guide assumes that you use ferbe on a standard rails 8.1 app that already has stimulus and importmap set up.
+> This guide assumes that you use ferbe on a standard rails 8.0/8.1 app that already has stimulus and importmap set up.
 
 Add this line to your application's Gemfile:
 
@@ -91,33 +91,11 @@ $ rails generate ferbe:install
 
 ### Layout
 
-In your layout, add these in the head section:
+Now, in your layout, add these in the head section:
 
 ```erb
   <%= ferbe_styles_tag %>
   <%= ferbe_javascript_tag %>
-```
-
-Add the `ferbe_editor_tag` and wrap everything in an element with the `ferbe__page` class.
-
-```erb
-<div class="ferbe__page">
-  <main>
-    <%= yield %>
-  </main>
-
-<%= ferbe_editor_tag %>
-</div>
-```
-
-### Add the Stimulus controller
-
-The final step is to add the provided Stimulus controller to your `javascript/controllers/index.js`:
-
-```js
-import FerbeEditorController from "ferbe/controllers/ferbe_editor_controller";
-// ...
-application.register("ferbe-editor", FerbeEditorController);
 ```
 
 ---

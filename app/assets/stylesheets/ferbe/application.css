@@ -2,21 +2,20 @@
   --ferbe-color-light-grey: #fafafa;
   --ferbe-color-grey: #dedede;
   --ferbe-color-blue: #0033b3;
-  --ferbe-color-red: #f6817f;
-  --ferbe-color-light-red: #ff9b99;
   --ferbe-border: 2px solid var(--ferbe-color-grey);
+}
+
+body {
+  margin: 0;
 }
 
 .ferbe__page {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
 
-  & > main {
+  iframe {
+    all: unset;
     flex-grow: 1;
-  }
-
-  .ferbe__editor * {
-    all: revert;
   }
 
   .ferbe__editor > div {
@@ -35,7 +34,7 @@
 
       code {
         /* CodeJar override */
-        white-space: nowrap !important;
+        white-space: pre !important;
       }
     }
 
@@ -53,6 +52,12 @@
       &.ferbe__save-button {
         width: 100%;
       }
+    }
+
+    a.ferbe__button {
+      box-sizing: border-box;
+      text-decoration: none;
+      text-align: center;
     }
 
     .ferbe__header {
@@ -81,15 +86,6 @@
         &:visited {
           color: var(--ferbe-color-blue);
         }
-      }
-    }
-
-    .ferbe__error-container {
-      border-color: var(--ferbe-color-red);
-      background-color: var(--ferbe-color-light-red);
-
-      &:empty {
-        display: none;
       }
     }
   }

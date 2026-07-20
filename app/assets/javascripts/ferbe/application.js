@@ -1,3 +1,4 @@
-import FerbeTemplate from "ferbe/elements/ferbe_template";
+import { application } from "controllers/application";
+import FerbeEditorController from "ferbe/controllers/ferbe_editor_controller";
 
-customElements.define("ferbe-template", FerbeTemplate);
+application.register("ferbe-editor", FerbeEditorController);

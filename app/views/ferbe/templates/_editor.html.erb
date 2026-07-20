@@ -1,0 +1,33 @@
+<%# locals: (url:, template:)  %>
+
+<div data-controller="ferbe-editor"
+     data-action="ferbe:open-editor@window->ferbe-editor#open">
+  <div class="ferbe__header">
+    <%= link_to "❌", url, class: "ferbe__button" %>
+    <h2><%= Pathname.new(template[:path]).relative_path_from(Rails.root) %></h2>
+  </div>
+  <pre class="ferbe__render-path">
+<% template[:render_path].each_with_index do |path, level| %>
+<%= " " * level %>> <%= link_to(Pathname.new(path).relative_path_from(Rails.root),
+                                edit_template_url(url: ,
+                                                  template: {
+                                                    path: path,
+                                                    render_path: template[:render_path]
+                                                  }),
+                                data: { turbo_stream: true }) %>
+<% end %>
+</pre>
+  <%= form_with url: template_url,
+                method: :patch,
+                scope: :template,
+                data: { ferbe_editor_target: "form" } do |form| %>
+    <%= form.hidden_field :path, value: template[:path] %>
+    <%= form.hidden_field :content,
+                          value: template[:content],
+                          data: { ferbe_editor_target: "input" } %>
+    <pre><code data-ferbe-editor-target="editor"
+               data-action="keydown.ctrl+s->ferbe-editor#save:prevent
+                              keydown.meta+s->ferbe-editor#save:prevent"><%= template[:content] %></code></pre>
+    <%= form.submit "💾", class: "ferbe__button ferbe__save-button" %>
+  <% end %>
+</div>

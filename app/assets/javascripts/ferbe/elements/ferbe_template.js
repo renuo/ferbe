@@ -43,19 +43,15 @@ export default class FerbeTemplate extends HTMLElement {
   }
 
   #openInEditor() {
-    const path = this.getAttribute("path");
-    const renderPath = this.#getRenderPath();
-
-    const params = new URLSearchParams();
-    params.append("template[path]", path);
-    renderPath.forEach((p) => params.append("template[render_path][]", p));
-
-    fetch(`/ferbe/template/edit?${params.toString()}`, {
-      headers: { Accept: "text/vnd.turbo-stream.html" },
-    })
-      .then((r) => r.text())
-      .then((html) => Turbo.renderStreamMessage(html))
-      .catch((err) => console.error("Failed to open editor:", err));
+    window.top.dispatchEvent(
+      new CustomEvent("ferbe:open-editor", {
+        detail: {
+          url: window.location.toString(),
+          filePath: this.getAttribute("path"),
+          renderPath: this.#getRenderPath(),
+        },
+      }),
+    );
   }
 
   #getRenderPath() {

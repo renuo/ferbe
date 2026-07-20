@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ferbe Editor</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= yield :head %>
+
+  <%= javascript_importmap_tags %>
+  <%= javascript_import_module_tag "ferbe/application" %>
+
+  <%= stylesheet_link_tag "ferbe/highlight", media: "all" %>
+  <%= stylesheet_link_tag "ferbe/application", media: "all" %>
+</head>
+<body>
+
+<%= yield %>
+
+</body>
+</html>

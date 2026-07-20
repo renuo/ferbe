@@ -1,3 +1,5 @@
+import editorUrl from "ferbe/utils/editor_url";
+
 import { Controller } from "@hotwired/stimulus";
 import { CodeJar } from "codejar";
 import hljs from "highlight.js/lib/core";
@@ -6,23 +8,29 @@ import xml from "highlight.js/lib/languages/xml";
 import ruby from "highlight.js/lib/languages/ruby";
 
 export default class FerbeEditorController extends Controller {
-  static targets = ["editor", "form", "input", "errorContainer"];
+  static targets = ["editor", "form", "input"];
 
   connect() {
     this.#setupHighlighting();
     this.#highlight(this.editorTarget);
     this.#preventUnsavedClosing();
-    this.#setupErrorHandling();
   }
 
   disconnect() {
     this.jar.destroy();
     window.onbeforeunload = null;
-    this.errorContainerTarget.innerHTML = "";
   }
 
-  close() {
-    this.element.remove();
+  open(event) {
+    const currentUrl = new URLSearchParams(document.location.search).get("url");
+    const url = editorUrl({ url: currentUrl, ...event.detail });
+
+    fetch(url, {
+      headers: { Accept: "text/vnd.turbo-stream.html" },
+    })
+      .then((r) => r.text())
+      .then((html) => Turbo.renderStreamMessage(html))
+      .catch((err) => console.error("Failed to open editor:", err));
   }
 
   save() {
@@ -57,25 +65,5 @@ export default class FerbeEditorController extends Controller {
       if (this.#hasUnsavedChanges())
         return "There are unsaved changes in the ferbe editor.";
     };
-  }
-
-  #setupErrorHandling() {
-    addEventListener("turbo:before-fetch-response", (event) => {
-      const response = event.detail.fetchResponse;
-      if (response.statusCode !== 500) return;
-
-      event.preventDefault();
-      document.documentElement.removeAttribute("aria-busy");
-      this.#displayError({
-        message: `${response.statusCode} ${response.response.statusText}`,
-        url: response.response.url,
-      });
-    });
-  }
-
-  #displayError({ message, url }) {
-    this.errorContainerTarget.innerHTML = `<strong>There is an error that was likely caused by your edit:</strong>
-${message}
-<a href="${url}" target="_blank">Open in new tab</a>`;
   }
 }
