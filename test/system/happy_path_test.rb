@@ -26,7 +26,7 @@ class HappyPathTest < ApplicationSystemTestCase
     assert_no_text @template_content
   end
 
-  test "modify template" do
+  test "modifying template" do
     new_content = "<div>MODIFIED TEMPLATE</div>"
 
     open_template
@@ -45,6 +45,14 @@ class HappyPathTest < ApplicationSystemTestCase
     assert_equal "#{new_content}\n", File.read(@template_path)
   ensure
     File.write(@template_path, @template_content)
+  end
+
+  test "navigating render path" do
+    open_template
+
+    click_link "app/views/home/index.html.erb"
+
+    assert_no_text @template_content.strip
   end
 
   private
