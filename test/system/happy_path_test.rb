@@ -18,6 +18,14 @@ class HappyPathTest < ApplicationSystemTestCase
     assert_text @template_content.strip
   end
 
+  test "closing editor" do
+    open_template
+
+    click_link "❌"
+
+    assert_no_text @template_content
+  end
+
   test "modify template" do
     new_content = "<div>MODIFIED TEMPLATE</div>"
 
