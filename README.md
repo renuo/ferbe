@@ -70,10 +70,9 @@ config.use_local_editor = false # or true
 
 Opening the editor opens a new page that displays the original page inside an iframe. This results in the following limitations:
 
-- Views returned by non-`GET` requests cannot be displayed. (The corresponding template can still be edited in the editor.)
-  - In the dummy app, this is illustrated on the "Cards" page. When deleting a card, a view is returned that is only available through the destroy action.
-- Controller actions must be idempotent. If a given URL can return different pages, the page displayed in the editor may differ from the one that was originally selected and is being edited.
-  - In the dummy app this is shown on the "Surprise" page, where a different view is used on every third visit.
+- As shown on the "Cards" page, when deleting a card, pages that can only be viewed once cannot be opened in the editor. 
+- But even if this wasn't the case, views returned by non-`GET` requests cannot be displayed.
+- Controller actions must be idempotent. If a given URL can return different pages, the page displayed in the editor may differ from the one that was originally selected and is being edited. In the dummy app, this is shown by the "Surprise" page that is different on every third visit.
 
 ## Installation
 
