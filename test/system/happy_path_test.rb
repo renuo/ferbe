@@ -31,6 +31,8 @@ class HappyPathTest < ApplicationSystemTestCase
 
     click_button "commit"
 
+    assert_no_selector "turbo-frame[busy]", visible: :all
+
     assert_equal "#{new_content}\n", File.read(template_path)
   ensure
     File.write(template_path, original_content)
@@ -42,5 +44,7 @@ class HappyPathTest < ApplicationSystemTestCase
     visit root_path
 
     find(".grid .red").click(:alt)
+
+    assert_selector "#ferbe-editor", wait: 10
   end
 end
