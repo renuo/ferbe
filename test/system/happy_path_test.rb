@@ -3,6 +3,11 @@
 require "application_system_test_case"
 
 class HappyPathTest < ApplicationSystemTestCase
+  setup do
+    @template_path = Rails.root.join("app/views/shared/colors/_red.html.erb")
+    @template_content = File.read(@template_path)
+  end
+
   test "opening editor" do
     open_template
 
@@ -10,12 +15,10 @@ class HappyPathTest < ApplicationSystemTestCase
     assert_text "app/views/shared/_grid.html.erb"
     assert_text "app/views/shared/colors/_red.html.erb"
 
-    assert_text '<div class="partial red"></div>'
+    assert_text @template_content.strip
   end
 
   test "modify template" do
-    template_path = Rails.root.join("app/views/shared/colors/_red.html.erb")
-    original_content = File.read(template_path)
     new_content = "<div>MODIFIED TEMPLATE</div>"
 
     open_template
@@ -31,9 +34,9 @@ class HappyPathTest < ApplicationSystemTestCase
 
     assert_no_selector "turbo-frame[busy]", visible: :all
 
-    assert_equal "#{new_content}\n", File.read(template_path)
+    assert_equal "#{new_content}\n", File.read(@template_path)
   ensure
-    File.write(template_path, original_content)
+    File.write(@template_path, @template_content)
   end
 
   private
