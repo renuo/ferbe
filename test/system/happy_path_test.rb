@@ -26,9 +26,7 @@ class HappyPathTest < ApplicationSystemTestCase
       .double_click
       .click
       .perform
-
     input.send_keys new_content
-
     click_button "commit"
 
     assert_no_selector "turbo-frame[busy]", visible: :all
