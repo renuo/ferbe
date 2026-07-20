@@ -1,4 +1,3 @@
-# :nocov: -> covered by manual system tests
 require "ferbe/template_wrapper"
 
 module Ferbe
