@@ -14,16 +14,26 @@ class HappyPathTest < ApplicationSystemTestCase
   end
 
   test "modify template" do
+    template_path = Rails.root.join("app/views/shared/colors/_red.html.erb")
+    original_content = File.read(template_path)
+    new_content = "<div>MODIFIED TEMPLATE</div>"
+
     open_template
 
     input = find(".hljs-string").native
     page.driver.browser.action
-        .move_to(input)
-        .double_click
-        .click
-        .perform
-    input.send_keys "<div>MODIFIED TEMPLATE</div>"
+      .move_to(input)
+      .double_click
+      .click
+      .perform
+
+    input.send_keys new_content
+
     click_button "commit"
+
+    assert_equal "#{new_content}\n", File.read(template_path)
+  ensure
+    File.write(template_path, original_content)
   end
 
   private
