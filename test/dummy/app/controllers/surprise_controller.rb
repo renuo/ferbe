@@ -1,7 +1,7 @@
 class SurpriseController < ApplicationController
   @@visit_count = 0
 
-  def show
+  def index
     @@visit_count += 1
 
     if @@visit_count >= 3
