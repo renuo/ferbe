@@ -8,17 +8,20 @@ class HappyPathTest < ApplicationSystemTestCase
     @template_content = File.read(@template_path)
   end
 
-  test "opening editor" do
+  test "editor opens with necessary parts" do
     open_template
 
     assert_text "app/views/home/index.html.erb"
     assert_text "app/views/shared/_grid.html.erb"
-    assert_text "app/views/shared/colors/_red.html.erb"
+    assert_text "app/views/shared/colors/_red.html.erb", minimum: 2
 
     assert_text @template_content.strip
+
+    assert_link "❌"
+    assert_button "💾"
   end
 
-  test "closing editor" do
+  test "editor can be closed" do
     open_template
 
     click_link "❌"
@@ -26,7 +29,7 @@ class HappyPathTest < ApplicationSystemTestCase
     assert_no_text @template_content
   end
 
-  test "modifying template" do
+  test "template can be modified" do
     new_content = "<div>MODIFIED TEMPLATE</div>"
 
     open_template
@@ -47,7 +50,7 @@ class HappyPathTest < ApplicationSystemTestCase
     File.write(@template_path, @template_content)
   end
 
-  test "navigating render path" do
+  test "render path can be navigated" do
     open_template
 
     click_link "app/views/home/index.html.erb"
