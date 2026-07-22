@@ -99,11 +99,10 @@ $ rails generate ferbe:install
 
 ### Layout
 
-Now, in your layout, add these in the head section:
+Now, in your layout, add this in the head section:
 
 ```erb
-  <%= ferbe_styles_tag %>
-  <%= ferbe_javascript_tag %>
+  <%= ferbe_tags %>
 ```
 
 ---
