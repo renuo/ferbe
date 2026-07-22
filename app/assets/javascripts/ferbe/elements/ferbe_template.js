@@ -1,8 +1,8 @@
 export default class FerbeTemplate extends HTMLElement {
   connectedCallback() {
-    const editor = document.getElementById("ferbe-editor");
-    this.modifierKey = editor?.dataset?.modifierKey || "alt";
-    this.useLocalEditor = editor?.dataset?.useLocalEditor === "true";
+    this.modifierKey = this.#getMetaContent("ferbe:modifier-key") || "alt";
+    this.useLocalEditor =
+      this.#getMetaContent("ferbe:use-local-editor") === "true";
 
     this.open = this.useLocalEditor
       ? this.#openInLocalEditor
@@ -12,6 +12,11 @@ export default class FerbeTemplate extends HTMLElement {
       event.stopPropagation();
       if (this.#isModifierKeyPressed(event)) this.open();
     };
+  }
+
+  #getMetaContent(name) {
+    const meta = document.querySelector(`meta[name="${name}"]`);
+    return meta ? meta.content : null;
   }
 
   #isModifierKeyPressed(event) {
