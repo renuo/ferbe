@@ -14,11 +14,6 @@ export default class FerbeTemplate extends HTMLElement {
     };
   }
 
-  #getMetaContent(name) {
-    const meta = document.querySelector(`meta[name="${name}"]`);
-    return meta ? meta.content : null;
-  }
-
   #isModifierKeyPressed(event) {
     const modifierKeys = {
       alt: event.altKey,
@@ -71,5 +66,10 @@ export default class FerbeTemplate extends HTMLElement {
     }
 
     return renderPath;
+  }
+
+  #getMetaContent(name) {
+    const meta = document.head.querySelector(`meta[name="${name}"]`);
+    return meta ? meta.content : null;
   }
 }
