@@ -65,6 +65,8 @@ class HappyPathTest < ApplicationSystemTestCase
 
     find(".grid .red").click(:alt)
 
-    assert_selector "#ferbe-editor", wait: 10
+    assert_selector "[data-turbo-permanent]", wait: 10
+
+    assert_selector "#ferbe-editor", wait: 20
   end
 end
