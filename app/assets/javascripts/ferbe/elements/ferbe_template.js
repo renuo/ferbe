@@ -1,8 +1,9 @@
+import { getMetaContent } from "ferbe/utils/meta";
+
 export default class FerbeTemplate extends HTMLElement {
   connectedCallback() {
-    this.modifierKey = this.#getMetaContent("ferbe:modifier-key") || "alt";
-    this.useLocalEditor =
-      this.#getMetaContent("ferbe:use-local-editor") === "true";
+    this.modifierKey = getMetaContent("ferbe:modifier-key", "alt");
+    this.useLocalEditor = getMetaContent("ferbe:use-local-editor") === "true";
 
     this.open = this.useLocalEditor
       ? this.#openInLocalEditor
@@ -26,9 +27,9 @@ export default class FerbeTemplate extends HTMLElement {
   }
 
   #openInLocalEditor() {
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+    const csrfToken = getMetaContent("csrf-token");
 
-    fetch("/ferbe/template/edit_locally", {
+    fetch(`${getMetaContent("ferbe:mount-path")}/template/edit_locally`, {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -66,10 +67,5 @@ export default class FerbeTemplate extends HTMLElement {
     }
 
     return renderPath;
-  }
-
-  #getMetaContent(name) {
-    const meta = document.head.querySelector(`meta[name="${name}"]`);
-    return meta ? meta.content : null;
   }
 }

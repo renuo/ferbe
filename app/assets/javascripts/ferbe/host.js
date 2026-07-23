@@ -1,5 +1,5 @@
 import FerbeTemplate from "ferbe/elements/ferbe_template";
-import editorUrl from "ferbe/utils/editor_url";
+import { editorUrl } from "ferbe/utils/editor";
 
 customElements.define("ferbe-template", FerbeTemplate);
 

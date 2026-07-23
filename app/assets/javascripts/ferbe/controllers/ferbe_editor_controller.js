@@ -1,4 +1,4 @@
-import editorUrl from "ferbe/utils/editor_url";
+import { editorUrl } from "ferbe/utils/editor";
 
 import { Controller } from "@hotwired/stimulus";
 import { CodeJar } from "codejar";
