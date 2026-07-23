@@ -91,6 +91,7 @@ $ bundle install
 ```
 
 Now run the following generator to:
+
 - Mount the engine
 - Create an initializer
 - Add the required tag to the layout.
