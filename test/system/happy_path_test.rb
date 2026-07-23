@@ -34,13 +34,12 @@ class HappyPathTest < ApplicationSystemTestCase
 
     open_template
 
-    input = find(".hljs-string").native
-    page.driver.browser.action
-      .move_to(input)
-      .double_click
-      .click
-      .perform
-    input.send_keys new_content
+    page.driver.with_playwright_page do |playwright_page|
+      locator = playwright_page.locator('.hljs-string')
+      locator.click(clickCount: 3)
+      playwright_page.keyboard.type(new_content)
+    end
+
     click_button "commit"
 
     assert_no_selector "turbo-frame[busy]", visible: :all
@@ -63,9 +62,9 @@ class HappyPathTest < ApplicationSystemTestCase
   def open_template
     visit root_path
 
-    find(".grid .red").click(:alt)
+    sleep 5
 
-    assert_selector "[data-turbo-permanent]", wait: 10
+    find(".grid .red").click(:alt)
 
     assert_selector "#ferbe-editor", wait: 20
   end

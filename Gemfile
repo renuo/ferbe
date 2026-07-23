@@ -18,7 +18,7 @@ end
 group :test do
   gem "simplecov", require: false
   gem "capybara"
-  gem "selenium-webdriver"
+  gem "capybara-playwright-driver"
 end
 
 gem "stimulus-rails", "~> 1.3"
