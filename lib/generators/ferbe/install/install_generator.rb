@@ -10,11 +10,11 @@ class Ferbe::InstallGenerator < Rails::Generators::Base
   end
 
   def add_tags_to_layout
-    application_layout = Rails.root.join("app/views/layouts/application.html.erb")
+    application_layout = "app/views/layouts/application.html.erb"
     tag = "\n\n  <%= ferbe_tags %>"
 
-    if application_layout.exist?
-      insert_into_file application_layout.to_s, tag, before: /\s*<\/head>/
+    if File.exist?(File.join(destination_root, application_layout))
+      insert_into_file application_layout, tag, before: /\s*<\/head>/
     else
       say "The default application.html.erb is missing.", :red
       say "Add the following tag to the head section of your layout:#{tag}"
