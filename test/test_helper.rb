@@ -20,16 +20,6 @@ ActiveRecord::Migrator.migrations_paths = [File.expand_path("../test/dummy/db/mi
 ActiveRecord::Migrator.migrations_paths << File.expand_path("../db/migrate", __dir__)
 require "rails/test_help"
 
-require "capybara-playwright-driver"
-
-Capybara.register_driver :custom_playwright do |app|
-  Capybara::Playwright::Driver.new(
-    app,
-    browser_type: ENV["PLAYWRIGHT_BROWSER"]&.to_sym || :chromium,
-    headless: ENV["CI"].present? || ENV["PLAYWRIGHT_HEADLESS"] != "false"
-  )
-end
-
 # Load fixtures from the engine
 if ActiveSupport::TestCase.respond_to?(:fixture_paths=)
   ActiveSupport::TestCase.fixture_paths = [File.expand_path("fixtures", __dir__)]

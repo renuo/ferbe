@@ -11,10 +11,8 @@ class HappyPathTest < ApplicationSystemTestCase
   test "editor opens with necessary parts" do
     visit root_path
 
-    # Wait for page to fully load including JavaScript modules
-    page.driver.with_playwright_page do |pw_page|
-      pw_page.wait_for_load_state(state: "networkidle")
-    end
+    # Wait for JavaScript to load and custom elements to be defined
+    assert_selector "ferbe-template .grid .red", wait: 10
 
     find(".grid .red").click(:alt)
 
@@ -43,11 +41,14 @@ class HappyPathTest < ApplicationSystemTestCase
 
     open_template
 
-    page.driver.with_playwright_page do |playwright_page|
-      locator = playwright_page.locator(".hljs-string")
-      locator.click(clickCount: 3)
-      playwright_page.keyboard.type(new_content)
-    end
+    input = find(".hljs-string").native
+    page.driver.browser.action
+      .move_to(input)
+      .double_click
+      .click
+      .perform
+
+    input.send_keys new_content
 
     click_button "commit"
 
