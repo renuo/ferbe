@@ -10,8 +10,15 @@ class HappyPathTest < ApplicationSystemTestCase
 
   test "editor opens with necessary parts" do
     visit root_path
-    sleep 5
+
+    # Wait for page to fully load including JavaScript modules
+    page.driver.with_playwright_page do |pw_page|
+      pw_page.wait_for_load_state(state: "networkidle")
+    end
+
     find(".grid .red").click(:alt)
+
+    assert_selector "#ferbe-editor", wait: 20
 
     assert_text "app/views/home/index.html.erb"
     assert_text "app/views/shared/_grid.html.erb"
