@@ -9,7 +9,9 @@ class HappyPathTest < ApplicationSystemTestCase
   end
 
   test "editor opens with necessary parts" do
-    open_template
+    visit root_path
+    sleep 5
+    find(".grid .red").click(:alt)
 
     assert_text "app/views/home/index.html.erb"
     assert_text "app/views/shared/_grid.html.erb"
@@ -26,7 +28,7 @@ class HappyPathTest < ApplicationSystemTestCase
 
     click_link "❌"
 
-    assert_no_text @template_content
+    assert_no_text @template_content.strip
   end
 
   test "template can be modified" do
@@ -35,7 +37,7 @@ class HappyPathTest < ApplicationSystemTestCase
     open_template
 
     page.driver.with_playwright_page do |playwright_page|
-      locator = playwright_page.locator('.hljs-string')
+      locator = playwright_page.locator(".hljs-string")
       locator.click(clickCount: 3)
       playwright_page.keyboard.type(new_content)
     end
@@ -60,12 +62,18 @@ class HappyPathTest < ApplicationSystemTestCase
   private
 
   def open_template
-    visit root_path
+    views_path = Rails.root.join("app/views")
+    parameters = {url: root_url, template: {
+      path: views_path.join("shared/colors/_red.html.erb"),
+      render_path: [
+        views_path.join("home/index.html.erb"),
+        views_path.join("shared/_grid.html.erb"),
+        views_path.join("shared/colors/_red.html.erb")
+      ]
+    }}
 
-    sleep 5
+    visit(ferbe.edit_template_path(parameters))
 
-    find(".grid .red").click(:alt)
-
-    assert_selector "#ferbe-editor", wait: 20
+    assert_text @template_content.strip
   end
 end
