@@ -1,6 +1,5 @@
 module Ferbe
   module Helper
-    #:nocov: -> tested implicitly through all manual system tests
     def ferbe_tags
       return unless Ferbe.configuration.enabled
 
@@ -20,6 +19,5 @@ module Ferbe
         concat tag.meta(name: "ferbe:mount-path", content: Rails.application.routes.url_helpers.ferbe_path)
       end
     end
-    #:nocov:
   end
 end
