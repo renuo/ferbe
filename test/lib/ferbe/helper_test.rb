@@ -19,7 +19,7 @@ module Ferbe
       Ferbe.configuration.use_local_editor = true
 
       result = ferbe_tags
-      
+
       assert_not_nil result
       assert_includes result, '<meta name="ferbe:modifier-key" content="ctrl">'
       assert_includes result, '<meta name="ferbe:use-local-editor" content="true">'
