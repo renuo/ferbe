@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-bundle exec appraisal rake test
+bundle exec appraisal rails-8-0 rake test
+bundle exec appraisal rails-8-1 rake test
+
+bundle exec appraisal rails-8-0-sprockets rake app:test:system
+bundle exec appraisal rails-8-1-sprockets rake app:test:system
