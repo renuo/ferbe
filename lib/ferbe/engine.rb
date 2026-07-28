@@ -25,12 +25,24 @@ module Ferbe
 
     initializer "ferbe.assets" do |app|
       next unless Ferbe.configuration.enabled
+      next unless app.config.respond_to?(:assets)
 
-      if app.config.respond_to?(:assets)
-        app.config.assets.paths << root.join("app/assets/javascripts")
-        app.config.assets.paths << root.join("app/assets/stylesheets")
-        app.config.assets.precompile += %w[ferbe/application.css ferbe/highlight.css ferbe/host.css ferbe/application.js]
+      asset_paths = [
+        ["app", "assets", "javascripts"],
+        ["app", "assets", "stylesheets"]
+      ]
+
+      paths_to_precompile = asset_paths.flat_map do |path|
+        app.config.assets.paths << Engine.root.join(*path)
+
+        Dir[Engine.root.join(*path, "**", "*")].filter_map do |file|
+          next unless File.file?(file)
+
+          Pathname.new(file).relative_path_from(Engine.root.join(*path)).to_s
+        end
       end
+
+      app.config.assets.precompile += paths_to_precompile
     end
 
     initializer "ferbe.importmap", before: "importmap" do |app|
