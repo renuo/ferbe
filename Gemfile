@@ -6,6 +6,7 @@ gemspec
 
 gem "puma"
 gem "sqlite3"
+gem "propshaft"
 gem "importmap-rails"
 
 group :development, :test do
