@@ -8,15 +8,28 @@ class HappyPathTest < ApplicationSystemTestCase
     @template_content = File.read(@template_path)
   end
 
-  test "editor opens with necessary parts" do
-    visit root_path
+  # test "editor opens with necessary parts" do
+  #   visit root_path
+  #
+  #   # Wait for JavaScript to load and custom elements to be defined
+  #   assert_selector "ferbe-template .grid .red", wait: 10
+  #
+  #   find(".grid .red").click(:alt)
+  #
+  #   assert_selector "#ferbe-editor", wait: 20
+  #
+  #   assert_text "app/views/home/index.html.erb"
+  #   assert_text "app/views/shared/_grid.html.erb"
+  #   assert_text "app/views/shared/colors/_red.html.erb", minimum: 2
+  #
+  #   assert_text @template_content.strip
+  #
+  #   assert_link "❌"
+  #   assert_button "💾"
+  # end
 
-    # Wait for JavaScript to load and custom elements to be defined
-    assert_selector "ferbe-template .grid .red", wait: 10
-
-    find(".grid .red").click(:alt)
-
-    assert_selector "#ferbe-editor", wait: 20
+  test "editor contains necessary parts" do
+    open_template
 
     assert_text "app/views/home/index.html.erb"
     assert_text "app/views/shared/_grid.html.erb"
