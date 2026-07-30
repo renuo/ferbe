@@ -6,6 +6,7 @@ export function editorUrl(template) {
     ["template[path]", template.filePath],
     ...template.renderPath.map((p) => ["template[render_path][]", p]),
   ]);
+  const mountPath = getMetaContent("ferbe:mount-path", "/ferbe");
 
-  return `${getMetaContent("ferbe:mount-path")}/template/edit?${params.toString()}`;
+  return `${mountPath}/template/edit?${params.toString()}`;
 }

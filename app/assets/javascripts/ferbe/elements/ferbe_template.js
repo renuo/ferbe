@@ -27,9 +27,10 @@ export default class FerbeTemplate extends HTMLElement {
   }
 
   #openInLocalEditor() {
+    const mountPath = getMetaContent("ferbe:mount-path", "/ferbe");
     const csrfToken = getMetaContent("csrf-token");
 
-    fetch(`${getMetaContent("ferbe:mount-path")}/template/edit_locally`, {
+    fetch(`${mountPath}/template/edit_locally`, {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
