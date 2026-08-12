@@ -1,0 +1,80 @@
+# frozen_string_literal: true
+
+require "application_system_test_case"
+
+class HappyPathTest < ApplicationSystemTestCase
+  setup do
+    @template_path = Rails.root.join("app/views/shared/colors/_red.html.erb")
+    @template_content = File.read(@template_path)
+  end
+
+  test "editor contains necessary parts" do
+    open_template
+
+    assert_text "app/views/home/index.html.erb"
+    assert_text "app/views/shared/_grid.html.erb"
+    assert_text "app/views/shared/colors/_red.html.erb", minimum: 2
+
+    assert_text @template_content.strip
+
+    assert_link "❌"
+    assert_button "💾"
+  end
+
+  test "editor can be closed" do
+    open_template
+
+    click_link "❌"
+
+    assert_no_text @template_content.strip
+  end
+
+  test "template can be modified" do
+    new_content = "<div>MODIFIED TEMPLATE</div>"
+
+    open_template
+
+    input = find(".hljs-string").native
+    page.driver.browser.action
+      .move_to(input)
+      .double_click
+      .click
+      .perform
+
+    input.send_keys new_content
+
+    click_button "commit"
+
+    assert_no_selector "turbo-frame[busy]", visible: :all
+
+    assert_equal "#{new_content}\n", File.read(@template_path)
+  ensure
+    File.write(@template_path, @template_content)
+  end
+
+  test "render path can be navigated" do
+    open_template
+
+    click_link "app/views/home/index.html.erb"
+
+    assert_no_text @template_content.strip
+  end
+
+  private
+
+  def open_template
+    views_path = Rails.root.join("app/views")
+    parameters = {url: root_url, template: {
+      path: views_path.join("shared/colors/_red.html.erb"),
+      render_path: [
+        views_path.join("home/index.html.erb"),
+        views_path.join("shared/_grid.html.erb"),
+        views_path.join("shared/colors/_red.html.erb")
+      ]
+    }}
+
+    visit(ferbe.edit_template_path(parameters))
+
+    assert_text @template_content.strip
+  end
+end
