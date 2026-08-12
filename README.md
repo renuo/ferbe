@@ -38,8 +38,7 @@ When saving changes, the actual file on your disk is overwritten.
 
 ### Error Handling
 
-If the changes you made lead to an error, the page will not fully reload and keep displaying the old output.
-An error message is displayed in the editor containing a link to see the curent page with errors.
+If the changes you made lead to an error, the page is replaced by the error page, and the editor will stay open and functional.
 
 ### Configuration
 
@@ -91,19 +90,14 @@ And execute:
 $ bundle install
 ```
 
-Now run the following to mount the engine and add the initializer:
+Now run the following generator to:
+
+- Mount the engine
+- Create an initializer
+- Add the required tag to the layout.
 
 ```bash
 $ rails generate ferbe:install
-```
-
-### Layout
-
-Now, in your layout, add these in the head section:
-
-```erb
-  <%= ferbe_styles_tag %>
-  <%= ferbe_javascript_tag %>
 ```
 
 ---

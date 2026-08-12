@@ -29,7 +29,7 @@ module Ferbe
       if app.config.respond_to?(:assets)
         app.config.assets.paths << root.join("app/assets/javascripts")
         app.config.assets.paths << root.join("app/assets/stylesheets")
-        app.config.assets.precompile += %w[ferbe/application.css ferbe/highlight.css ferbe/application.js]
+        app.config.assets.precompile += %w[ferbe/application.css ferbe/highlight.css ferbe/host.css ferbe/application.js]
       end
     end
 

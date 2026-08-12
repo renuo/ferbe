@@ -2,3 +2,5 @@ Description:
     This generator will properly install the ferbe gem in your application.
     That includes:
      - Mounting the engine in your routes.rb
+     - Creating a configuration initializer at config/initializers/ferbe.rb
+     - Adding the ferbe_tags helper to your application layout
